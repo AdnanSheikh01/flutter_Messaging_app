@@ -1,5 +1,6 @@
 import 'package:chatting_app/Pages/custom_card.dart';
-import 'package:chatting_app/models/chatmodel.dart';
+import 'package:chatting_app/Screens/contact_screen.dart';
+import 'package:chatting_app/models/chat_model.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -76,8 +77,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 chatmodel: message[index],
               )),
         ),
-        floatingActionButton:
-            FloatingActionButton(onPressed: () {}, child: Icon(Icons.chat)),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext) => ContactScreen()));
+            },
+            child: Icon(Icons.chat)),
       ),
     );
   }

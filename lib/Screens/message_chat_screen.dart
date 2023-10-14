@@ -1,7 +1,8 @@
+import 'package:chatting_app/Pages/camera_page.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../models/chatmodel.dart';
+import '../models/chat_model.dart';
 
 class InsideCustom extends StatefulWidget {
   const InsideCustom({super.key, required this.chatmodel});
@@ -124,28 +125,51 @@ class _InsideCustomState extends State<InsideCustom> {
                               minLines: 1,
                               textAlignVertical: TextAlignVertical.center,
                               decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Type a Message",
-                                  prefixIcon: IconButton(
-                                    icon: Icon(Icons.emoji_emotions),
-                                    onPressed: () {
-                                      focusNode.unfocus();
-                                      focusNode.canRequestFocus = false;
-                                      setState(() {
-                                        show = !show;
-                                      });
-                                    },
-                                  ),
-                                  contentPadding: EdgeInsets.all(5),
-                                  suffixIcon: IconButton(
-                                      onPressed: () {
-                                        showModalBottomSheet(
-                                            backgroundColor: Colors.transparent,
-                                            context: context,
-                                            builder: (builder) =>
-                                                BottomSheet());
-                                      },
-                                      icon: Icon(Icons.attach_file))),
+                                border: InputBorder.none,
+                                hintText: "Type a Message",
+                                prefixIcon: IconButton(
+                                  icon: Icon(Icons.emoji_emotions),
+                                  onPressed: () {
+                                    focusNode.unfocus();
+                                    focusNode.canRequestFocus = false;
+                                    setState(() {
+                                      show = !show;
+                                    });
+                                  },
+                                ),
+                                contentPadding: EdgeInsets.all(5),
+                                suffixIcon: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Transform.rotate(
+                                      angle: 75,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          showModalBottomSheet(
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              context: context,
+                                              builder: (builder) =>
+                                                  BottomSheet());
+                                        },
+                                        icon: Icon(
+                                          Icons.attach_file,
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                        icon: Icon(Icons.camera_alt),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext contet) =>
+                                                          CameraPage()));
+                                        }),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),

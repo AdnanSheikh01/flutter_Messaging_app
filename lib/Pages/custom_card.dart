@@ -1,5 +1,5 @@
-import 'package:chatting_app/Pages/inside_custom.dart';
-import 'package:chatting_app/models/chatmodel.dart';
+import 'package:chatting_app/Screens/message_chat_screen.dart';
+import 'package:chatting_app/models/chat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
