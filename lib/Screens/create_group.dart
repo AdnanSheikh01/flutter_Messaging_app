@@ -1,8 +1,8 @@
-import 'package:chatting_app/Pages/button_card.dart';
+import 'package:chatting_app/Widgets/button_card.dart';
 import 'package:chatting_app/models/contact_chat_model.dart';
 import 'package:flutter/material.dart';
 
-import '../Pages/contact_card.dart';
+import '../Widgets/contact_card.dart';
 
 class CreateGroup extends StatefulWidget {
   const CreateGroup({super.key});
@@ -42,6 +42,7 @@ class _CreateGroupState extends State<CreateGroup> {
           ],
         ),
         body: ListView.builder(
+            physics: BouncingScrollPhysics(),
             itemCount: contacts.length,
             itemBuilder: (context, index) {
               return InkWell(

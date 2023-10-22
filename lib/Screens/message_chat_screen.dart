@@ -1,12 +1,16 @@
-import 'package:chatting_app/Pages/camera_page.dart';
+import 'dart:math';
+
+import 'package:chatting_app/Widgets/camera_page.dart';
+import 'package:chatting_app/Widgets/receive_message.dart';
+import 'package:chatting_app/Widgets/send_message.dart';
+import 'package:chatting_app/models/chat_user.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../models/chat_model.dart';
 
 class InsideCustom extends StatefulWidget {
-  const InsideCustom({super.key, required this.chatmodel});
-  final Chatmodel chatmodel;
+  const InsideCustom({super.key, required this.chatUser});
+  final ChatUser chatUser;
 
   @override
   State<InsideCustom> createState() => _InsideCustomState();
@@ -32,7 +36,7 @@ class _InsideCustomState extends State<InsideCustom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         leadingWidth: 90,
         titleSpacing: 7,
@@ -45,17 +49,17 @@ class _InsideCustomState extends State<InsideCustom> {
                   Navigator.pop(context);
                 },
                 icon: Icon(Icons.arrow_back)),
-            CircleAvatar(
-              child: SvgPicture.asset(
-                widget.chatmodel.isGroup
-                    ? "assets/groups.svg"
-                    : "assets/person.svg",
-                color: Colors.white,
-                height: 32,
-                width: 32,
-              ),
-              radius: 20,
-            ),
+            // CircleAvatar(
+            //   child: SvgPicture.asset(
+            //     widget.chatmodel.isGroup
+            //         ? "assets/groups.svg"
+            //         : "assets/person.svg",
+            //     color: Colors.white,
+            //     height: 32,
+            //     width: 32,
+            //   ),
+            //   radius: 20,
+            // ),
           ],
         ),
         title: InkWell(
@@ -64,10 +68,10 @@ class _InsideCustomState extends State<InsideCustom> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                widget.chatmodel.name,
-                style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-              ),
+              // Text(
+              //   widget.chatmodel.name,
+              //   style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+              // ),
               Text(
                 "last seen today at 12:00am",
                 style: TextStyle(fontSize: 13),
@@ -101,7 +105,26 @@ class _InsideCustomState extends State<InsideCustom> {
         child: WillPopScope(
           child: Stack(
             children: [
-              ListView(),
+              Container(
+                height: MediaQuery.of(context).size.height - 140,
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    SendMessage(),
+                    ReceiveMessage(),
+                    SendMessage(),
+                    ReceiveMessage(),
+                    SendMessage(),
+                    ReceiveMessage(),
+                    SendMessage(),
+                    ReceiveMessage(),
+                    SendMessage(),
+                    ReceiveMessage(),
+                    SendMessage(),
+                    ReceiveMessage(),
+                  ],
+                ),
+              ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Column(
@@ -142,7 +165,7 @@ class _InsideCustomState extends State<InsideCustom> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Transform.rotate(
-                                      angle: 75,
+                                      angle: 45,
                                       child: IconButton(
                                         onPressed: () {
                                           showModalBottomSheet(
@@ -164,7 +187,7 @@ class _InsideCustomState extends State<InsideCustom> {
                                               context,
                                               MaterialPageRoute(
                                                   builder:
-                                                      (BuildContext contet) =>
+                                                      (BuildContext context) =>
                                                           CameraPage()));
                                         }),
                                   ],

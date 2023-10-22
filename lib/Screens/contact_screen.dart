@@ -1,9 +1,8 @@
-import 'package:chatting_app/Pages/button_card.dart';
+import 'package:chatting_app/Widgets/button_card.dart';
 import 'package:chatting_app/Screens/create_group.dart';
+import 'package:chatting_app/Widgets/contact_card.dart';
 import 'package:chatting_app/models/contact_chat_model.dart';
 import 'package:flutter/material.dart';
-
-import '../Pages/contact_card.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});
@@ -58,6 +57,7 @@ class _ContactScreenState extends State<ContactScreen> {
           ],
         ),
         body: ListView.builder(
+            physics: BouncingScrollPhysics(),
             itemCount: contacts.length + 2,
             itemBuilder: (context, index) {
               if (index == 0) {

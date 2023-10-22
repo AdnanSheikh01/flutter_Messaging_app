@@ -1,7 +1,10 @@
-import 'package:chatting_app/Pages/custom_card.dart';
+import 'package:chatting_app/Screens/profile_screen.dart';
+import 'package:chatting_app/Widgets/custom_card.dart';
 import 'package:chatting_app/Screens/contact_screen.dart';
-import 'package:chatting_app/models/chat_model.dart';
+import 'package:chatting_app/models/chat_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,82 +13,90 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+@override
 class _HomeScreenState extends State<HomeScreen> {
-  List<Chatmodel> message = [
-    Chatmodel(
-        name: "Mohd Adnan",
-        icon: "person.svg",
-        isGroup: false,
-        time: "4:00pm",
-        currentMessage: "Hi! How are you?"),
-    Chatmodel(
-        name: "Mohd Aman",
-        icon: "person.svg",
-        isGroup: false,
-        time: "5:00pm",
-        currentMessage: "Hi! Did you done the assignmnet?"),
-    Chatmodel(
-        name: "Friends forever",
-        icon: "groups.svg",
-        isGroup: true,
-        time: "10:00am",
-        currentMessage: "Hi, how all are you?"),
-    Chatmodel(
-        name: "Jamia Hamdard Announcement",
-        icon: "groups.svg",
-        isGroup: true,
-        time: "11:00pm",
-        currentMessage: "No class tomorrow"),
-    Chatmodel(
-        name: "Alam",
-        icon: "person.svg",
-        isGroup: false,
-        time: "7:00am",
-        currentMessage: "Hi! Where are you?")
-  ];
+  final auth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
+  List<ChatUser> list = [];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Messages"),
-          // centerTitle: true,
-          actions: [
-            IconButton(icon: const Icon(Icons.search), onPressed: () {}),
-            // IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
-            PopupMenuButton<String>(onSelected: (value) {
-              print(value);
-            }, itemBuilder: (BuildContext context) {
-              return [
-                PopupMenuItem(child: Text("New Group"), value: "New Group"),
-                PopupMenuItem(
-                  child: Text("Linked devices"),
-                  value: "Linked devices",
-                ),
-                PopupMenuItem(
-                    child: Text("Starred Messages"), value: "Starred Messages"),
-                PopupMenuItem(child: Text("Settings"), value: "Settings"),
-                PopupMenuItem(
-                    child: Text("Help & Support"), value: "Help & Support")
-              ];
-            })
-          ],
-        ),
-        body: ListView.builder(
-          itemCount: message.length,
-          itemBuilder: ((context, index) => CustomCard(
-                chatmodel: message[index],
-              )),
-        ),
-        floatingActionButton: FloatingActionButton(
+        child: Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text("Messages"),
+        // centerTitle: true,
+
+        actions: [
+          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+          IconButton(
             onPressed: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext) => ContactScreen()));
+                      builder: (context) => ProfileScreen(
+                            chatUser: list[0],
+                          )));
             },
-            child: Icon(Icons.chat)),
+            icon: Icon(Icons.more_vert),
+          ),
+        ],
       ),
-    );
+      body: StreamBuilder(
+          stream: firestore.collection('users').snapshots(),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+              case ConnectionState.none:
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              case ConnectionState.done:
+              case ConnectionState.active:
+                final data = snapshot.data?.docs;
+                list = data?.map((e) => ChatUser.fromJson(e.data())).toList() ??
+                    [];
+                if (list.isNotEmpty) {
+                  return ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * .01),
+                      itemCount: list.length,
+                      itemBuilder: (context, index) {
+                        return CustomCard(chatUser: list[index]);
+                      });
+                } else {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "No Connection Found!",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ContactScreen()));
+                        },
+                        child: Center(
+                            child: Text("Start a Chat",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    decoration: TextDecoration.underline))),
+                      )
+                    ],
+                  );
+                }
+            }
+          }),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ContactScreen()));
+          },
+          child: const Icon(Icons.chat)),
+    ));
   }
 }

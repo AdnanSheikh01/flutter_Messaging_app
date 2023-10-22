@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "627974758158",
+    "project_id": "messaging-app-bf299",
+    "storage_bucket": "messaging-app-bf299.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627974758158:android:15f7bdd72c9a41f469815f",
+        "android_client_info": {
+          "package_name": "com.example.chatting_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsCfSZEyATdS1zwHZN4L5d0yrmLXQacds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
