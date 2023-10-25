@@ -1,23 +1,31 @@
-import 'dart:math';
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
 
-import 'package:chatting_app/Widgets/camera_page.dart';
-import 'package:chatting_app/Widgets/receive_message.dart';
-import 'package:chatting_app/Widgets/send_message.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chatting_app/Screens/message_card.dart';
+import 'package:chatting_app/Screens/view_profile_screen.dart';
+import 'package:chatting_app/models/Apis.dart';
 import 'package:chatting_app/models/chat_user.dart';
+import 'package:chatting_app/models/message.dart';
+import 'package:chatting_app/utils/date_util.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 
-class InsideCustom extends StatefulWidget {
-  const InsideCustom({super.key, required this.chatUser});
+class ChatScreen extends StatefulWidget {
+  const ChatScreen({super.key, required this.chatUser});
   final ChatUser chatUser;
 
   @override
-  State<InsideCustom> createState() => _InsideCustomState();
+  State<ChatScreen> createState() => _ChatScreenState();
 }
 
-class _InsideCustomState extends State<InsideCustom> {
+class _ChatScreenState extends State<ChatScreen> {
+  bool _isUploading = false;
   TextEditingController _controller = TextEditingController();
+  List<Messages> _list = [];
   bool show = false;
   FocusNode focusNode = FocusNode();
   @override
@@ -35,201 +43,174 @@ class _InsideCustomState extends State<InsideCustom> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        leadingWidth: 90,
-        titleSpacing: 7,
-        leading: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.arrow_back)),
-            // CircleAvatar(
-            //   child: SvgPicture.asset(
-            //     widget.chatmodel.isGroup
-            //         ? "assets/groups.svg"
-            //         : "assets/person.svg",
-            //     color: Colors.white,
-            //     height: 32,
-            //     width: 32,
-            //   ),
-            //   radius: 20,
-            // ),
-          ],
-        ),
-        title: InkWell(
-          onTap: () {},
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Text(
-              //   widget.chatmodel.name,
-              //   style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-              // ),
-              Text(
-                "last seen today at 12:00am",
-                style: TextStyle(fontSize: 13),
-              )
-            ],
-          ),
-        ),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.videocam)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.call)),
-          PopupMenuButton<String>(onSelected: (value) {
-            print(value);
-          }, itemBuilder: (BuildContext context) {
-            return [
-              PopupMenuItem(child: Text("View Contact"), value: "View Contact"),
-              PopupMenuItem(
-                child: Text("Mute Notification"),
-                value: "Mute Notification",
-              ),
-              PopupMenuItem(child: Text("Search"), value: "Search"),
-              PopupMenuItem(child: Text("Delete"), value: "Delete"),
-              PopupMenuItem(
-                  child: Text("Help & Support"), value: "Help & Support")
-            ];
-          })
-        ],
-      ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: WillPopScope(
-          child: Stack(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height - 140,
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    SendMessage(),
-                    ReceiveMessage(),
-                    SendMessage(),
-                    ReceiveMessage(),
-                    SendMessage(),
-                    ReceiveMessage(),
-                    SendMessage(),
-                    ReceiveMessage(),
-                    SendMessage(),
-                    ReceiveMessage(),
-                    SendMessage(),
-                    ReceiveMessage(),
-                  ],
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width - 60,
-                          // height: MediaQuery.of(context).size.height,
-                          child: Card(
-                            margin:
-                                EdgeInsets.only(left: 2, right: 2, bottom: 8),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25)),
-                            child: TextFormField(
-                              controller: _controller,
-                              focusNode: focusNode,
-                              keyboardType: TextInputType.multiline,
-                              maxLines: 5,
-                              minLines: 1,
-                              textAlignVertical: TextAlignVertical.center,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Type a Message",
-                                prefixIcon: IconButton(
-                                  icon: Icon(Icons.emoji_emotions),
-                                  onPressed: () {
-                                    focusNode.unfocus();
-                                    focusNode.canRequestFocus = false;
-                                    setState(() {
-                                      show = !show;
-                                    });
-                                  },
-                                ),
-                                contentPadding: EdgeInsets.all(5),
-                                suffixIcon: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Transform.rotate(
-                                      angle: 45,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          showModalBottomSheet(
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              context: context,
-                                              builder: (builder) =>
-                                                  BottomSheet());
-                                        },
-                                        icon: Icon(
-                                          Icons.attach_file,
-                                        ),
-                                      ),
-                                    ),
-                                    IconButton(
-                                        icon: Icon(Icons.camera_alt),
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder:
-                                                      (BuildContext context) =>
-                                                          CameraPage()));
-                                        }),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              EdgeInsets.only(bottom: 8, right: 5, left: 2),
-                          child: CircleAvatar(
-                            radius: 25,
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.send,
+    return SafeArea(
+        child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: Scaffold(
+              backgroundColor: Colors.grey[200],
+              appBar: AppBar(
+                  automaticallyImplyLeading: false,
+                  flexibleSpace: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ViewProfileScreen(
+                                    chatUser: widget.chatUser,
+                                  )));
+                    },
+                    child: StreamBuilder(
+                        stream: Api.getUsersInfo(widget.chatUser),
+                        builder: (context, snapshot) {
+                          final data = snapshot.data?.docs;
+                          final list = data
+                                  ?.map((e) => ChatUser.fromJson(e.data()))
+                                  .toList() ??
+                              [];
+
+                          return Row(children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(
+                                  Icons.arrow_back,
                                   color: Colors.white,
                                 )),
-                          ),
-                        ),
-                      ],
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                  MediaQuery.of(context).size.height * .03),
+                              child: CachedNetworkImage(
+                                  width:
+                                      MediaQuery.of(context).size.height * .055,
+                                  height:
+                                      MediaQuery.of(context).size.height * .055,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) =>
+                                      CircularProgressIndicator(),
+                                  imageUrl: list.isNotEmpty
+                                      ? list[0].image
+                                      : widget.chatUser.image,
+                                  errorWidget: (context, url, error) =>
+                                      CircleAvatar(
+                                        child: Icon(CupertinoIcons.person),
+                                      )),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  list.isNotEmpty
+                                      ? list[0].name
+                                      : widget.chatUser.name,
+                                  style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                                Text(
+                                  list.isNotEmpty
+                                      ? list[0].isOnline
+                                          ? 'Online'
+                                          : MyDateUtil.LastActiveTime(
+                                              context: context,
+                                              LastActive: list[0].lastActive,
+                                            )
+                                      : MyDateUtil.LastActiveTime(
+                                          context: context,
+                                          LastActive:
+                                              widget.chatUser.lastActive),
+                                  style: TextStyle(
+                                      fontSize: 13, color: Colors.white70),
+                                )
+                              ],
+                            ),
+                          ]);
+                        }),
+                  )),
+              body: WillPopScope(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: StreamBuilder(
+                        stream: Api.getAllMessages(widget.chatUser),
+                        builder: (context, snapshot) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
+                            case ConnectionState.none:
+                              return SizedBox();
+                            case ConnectionState.done:
+                            case ConnectionState.active:
+                              final data = snapshot.data?.docs;
+
+                              _list = data
+                                      ?.map((e) => Messages.fromJson(e.data()))
+                                      .toList() ??
+                                  [];
+
+                              if (_list.isNotEmpty) {
+                                return ListView.builder(
+                                    reverse: true,
+                                    physics: BouncingScrollPhysics(),
+                                    padding: EdgeInsets.only(
+                                        top:
+                                            MediaQuery.of(context).size.height *
+                                                .01),
+                                    itemCount: _list.length,
+                                    itemBuilder: (context, index) {
+                                      return MessageCard(
+                                        message: _list[index],
+                                      );
+                                    });
+                              } else {
+                                return Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        "Say Hello!! 👋",
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }
+                          }
+                        },
+                      ),
                     ),
+                    if (_isUploading)
+                      Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 20),
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                            ),
+                          )),
+                    _chatInput(),
                     show ? EmojiSelect() : Container(),
                   ],
                 ),
+                onWillPop: () {
+                  if (show) {
+                    setState(() {
+                      show = false;
+                    });
+                  } else {
+                    Navigator.pop(context);
+                  }
+                  return Future.value(false);
+                },
+                //   ],
+                // ),
               ),
-            ],
-          ),
-          onWillPop: () {
-            if (show) {
-              setState(() {
-                show = false;
-              });
-            } else {
-              Navigator.pop(context);
-            }
-            return Future.value(false);
-          },
-        ),
-      ),
-    );
+            )));
   }
 
   Widget EmojiSelect() {
@@ -246,70 +227,105 @@ class _InsideCustomState extends State<InsideCustom> {
     );
   }
 
-  Widget BottomSheet() {
-    return Container(
-      height: 250,
-      width: MediaQuery.of(context).size.width,
-      child: Card(
-        margin: EdgeInsets.all(10),
-        child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconsCreate(Icons.insert_drive_file, Colors.indigo, "Document"),
-              SizedBox(
-                width: 30,
-              ),
-              IconsCreate(Icons.camera_alt, Colors.pink, "Camera"),
-              SizedBox(
-                width: 30,
-              ),
-              IconsCreate(Icons.insert_photo, Colors.purple, "Gallery"),
-              SizedBox(
-                width: 30,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconsCreate(Icons.headphones, Colors.amber, "Audio"),
-              SizedBox(
-                width: 30,
-              ),
-              IconsCreate(Icons.location_on, Colors.teal, "Location"),
-              SizedBox(
-                width: 30,
-              ),
-              IconsCreate(Icons.person, Colors.blue, "Contact"),
-              SizedBox(
-                width: 30,
-              ),
-            ],
-          )
-        ]),
-      ),
-    );
-  }
+  Widget _chatInput() {
+    return Row(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width - 60,
+          child: Card(
+            margin: EdgeInsets.only(left: 2, right: 2, bottom: 8),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+            child: TextFormField(
+              controller: _controller,
+              focusNode: focusNode,
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              minLines: 1,
+              textAlignVertical: TextAlignVertical.center,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: "Type a Message...",
+                prefixIcon: IconButton(
+                  icon: Icon(Icons.emoji_emotions),
+                  onPressed: () {
+                    focusNode.unfocus();
+                    focusNode.canRequestFocus = false;
+                    setState(() {
+                      show = !show;
+                    });
+                  },
+                ),
+                contentPadding: EdgeInsets.all(5),
+                suffixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () async {
+                        final ImagePicker picker = ImagePicker();
+                        // Pick an image from gallery.
+                        final List<XFile> images =
+                            await picker.pickMultiImage(imageQuality: 70);
+                        for (var i in images) {
+                          setState(() {
+                            _isUploading = true;
+                          });
+                          log('Image Path: ${i.path}');
+                          Api.SendImageChat(widget.chatUser, File(i.path));
+                          setState(() {
+                            _isUploading = false;
+                          });
+                        }
+                      },
+                      icon: Icon(
+                        Icons.photo,
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.camera_alt),
+                      onPressed: () async {
+                        final ImagePicker picker = ImagePicker();
+                        // Pick an image from camera.
+                        final XFile? image = await picker.pickImage(
+                            source: ImageSource.camera, imageQuality: 70);
+                        if (image != null) {
+                          log('Image Path: ${image.path}');
+                          setState(() {
+                            _isUploading = true;
+                          });
 
-  Widget IconsCreate(IconData icon, Color color, String text) {
-    return InkWell(
-      onTap: () {},
-      child: Column(
-        children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundColor: color,
-            child: Icon(
-              icon,
-              color: Colors.white,
-              size: 30,
+                          Api.SendImageChat(widget.chatUser, File(image.path));
+                          setState(() {
+                            _isUploading = false;
+                          });
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
-          Text(text)
-        ],
-      ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 8, right: 5, left: 2),
+          child: CircleAvatar(
+            radius: 25,
+            child: IconButton(
+                onPressed: () {
+                  if (_controller.text.isNotEmpty) {
+                    Api.SendMessage(
+                        widget.chatUser, _controller.text, Type.text);
+                    _controller.text = '';
+                  }
+                },
+                icon: const Icon(
+                  Icons.send,
+                  color: Colors.white,
+                )),
+          ),
+        ),
+      ],
     );
   }
 }

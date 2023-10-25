@@ -1,5 +1,3 @@
-import 'package:camera/camera.dart';
-import 'package:chatting_app/Screens/camera_screen.dart';
 import 'package:chatting_app/Screens/splash_screen.dart';
 import 'package:chatting_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,7 +13,6 @@ Future<void> main() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    cameras = await availableCameras();
 
     runApp(const MyApp());
   });

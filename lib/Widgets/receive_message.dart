@@ -1,8 +1,15 @@
+import 'package:chatting_app/models/message.dart';
 import 'package:flutter/material.dart';
 
-class ReceiveMessage extends StatelessWidget {
-  const ReceiveMessage({super.key});
+class ReceiveMessage extends StatefulWidget {
+  const ReceiveMessage({super.key, required this.message});
+  final Messages message;
 
+  @override
+  State<ReceiveMessage> createState() => _ReceiveMessageState();
+}
+
+class _ReceiveMessageState extends State<ReceiveMessage> {
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -22,7 +29,7 @@ class ReceiveMessage extends StatelessWidget {
               padding: const EdgeInsets.only(
                   left: 10, right: 60, top: 10, bottom: 20),
               child: Text(
-                "Hello",
+                widget.message.msg,
                 style: TextStyle(
                   fontSize: 17,
                 ),

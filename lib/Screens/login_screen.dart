@@ -64,7 +64,10 @@ class _LoginScreenState extends State<LoginScreen> {
       return await Api.auth.signInWithCredential(credential);
     } catch (e) {
       log('\n_signInWithGoogle: $e');
-      dialogs.showSnackBar(context, 'Something Went Wrong (Check Internet!)');
+      dialogs.showSnackBar(
+          context,
+          'Something Went Wrong, try again later or Check Internet !!',
+          Colors.red);
       return null;
     }
   }
