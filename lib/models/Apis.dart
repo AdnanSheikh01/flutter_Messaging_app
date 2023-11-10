@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -5,7 +6,9 @@ import 'package:chatting_app/models/chat_user.dart';
 import 'package:chatting_app/models/message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:http/http.dart';
 
 class Api {
   static late ChatUser me;
@@ -13,11 +16,23 @@ class Api {
   static FirebaseStorage storage = FirebaseStorage.instance;
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
   static User get user => auth.currentUser!;
+  static FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  static Future<void> getFirebaseMessageToken() async {
+    await messaging.requestPermission();
+    await messaging.getToken().then((value) {
+      if (value != null) {
+        me.pushToken = value;
+      }
+    });
+  }
 
   static Future<void> SelfInfo() async {
     await firestore.collection('users').doc(user.uid).get().then((user) async {
       if (user.exists) {
         me = ChatUser.fromJson(user.data()!);
+        await getFirebaseMessageToken();
+        Api.UpdateActiveStatus(true);
         log('My Data: ${user.data()}');
       } else {
         {
@@ -25,6 +40,32 @@ class Api {
         }
       }
     });
+  }
+
+  static Future<void> sendPushNotification(
+      ChatUser chatUser, String msg) async {
+    try {
+      final body = {
+        "to": chatUser.pushToken,
+        "notification": {
+          "title": me.name,
+          "body": msg,
+          "android_channel_id": "chats"
+        },
+      };
+
+      var res = await post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          headers: {
+            HttpHeaders.contentTypeHeader: 'application/json',
+            HttpHeaders.authorizationHeader:
+                'key=AAAAkjY2Xw4:APA91bF9PhOteLXJC7db9VpTcVCXUUkhoU9sIkOmFgpXjF7-sKvozpoya9VYw_YN5BkggdE8rrfW1EeDw2Dvv6GhmAQzNGKPQvJp76cpFID3902LfYujBgW097aTGa1GQvSedpUO6ged'
+          },
+          body: jsonEncode(body));
+      log('Response status: ${res.statusCode}');
+      log('Response body: ${res.body}');
+    } catch (e) {
+      log('\nsendPushNotificationE: $e');
+    }
   }
 
   static Future<bool> userExists() async {
@@ -91,7 +132,8 @@ class Api {
   static Future<void> UpdateActiveStatus(bool isOnline) async {
     firestore.collection('users').doc(user.uid).update({
       'is_online': isOnline,
-      'last_active': DateTime.now().millisecondsSinceEpoch.toString()
+      'last_active': DateTime.now().millisecondsSinceEpoch.toString(),
+      'push_token': me.pushToken
     });
   }
   // Api related Chat Messages
@@ -122,7 +164,8 @@ class Api {
 
     final ref = firestore
         .collection('chats/${getConversationID(chatUser.id)}/ messages/');
-    await ref.doc(time).set(message.toJson());
+    await ref.doc(time).set(message.toJson()).then((value) =>
+        sendPushNotification(chatUser, type == Type.text ? msg : 'Photo'));
   }
 
   static Future<void> updateMessageReadStatus(Messages message) async {

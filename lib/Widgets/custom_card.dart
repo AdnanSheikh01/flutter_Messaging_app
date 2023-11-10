@@ -4,7 +4,7 @@ import 'package:chatting_app/models/Apis.dart';
 import 'package:chatting_app/models/chat_user.dart';
 import 'package:chatting_app/models/message.dart';
 import 'package:chatting_app/utils/date_util.dart';
-import 'package:chatting_app/utils/dialogs.dart';
+// import 'package:chatting_app/utils/dialogs.dart';
 import 'package:chatting_app/utils/profie_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -73,12 +73,14 @@ class _CustomCardState extends State<CustomCard> {
                     ),
                     subtitle: Row(
                       children: [
-                        Text(
-                          _messages != null
-                              ? _messages!.type == Type.image
-                                  ? 'Photo'
-                                  : _messages!.msg
-                              : widget.chatUser.about,
+                        Flexible(
+                          child: Text(
+                            _messages != null
+                                ? _messages!.type == Type.image
+                                    ? 'Photo'
+                                    : _messages!.msg
+                                : widget.chatUser.about,
+                          ),
                         )
                       ],
                     ),

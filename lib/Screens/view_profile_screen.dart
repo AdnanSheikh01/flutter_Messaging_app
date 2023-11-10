@@ -1,18 +1,15 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chatting_app/Screens/login_screen.dart';
-import 'package:chatting_app/models/Apis.dart';
+// import 'package:chatting_app/Screens/login_screen.dart';
+// import 'package:chatting_app/models/Apis.dart';
 import 'package:chatting_app/models/chat_user.dart';
 import 'package:chatting_app/utils/date_util.dart';
-import 'package:chatting_app/utils/dialogs.dart';
-import 'package:chatting_app/utils/utils.dart';
+// import 'package:chatting_app/utils/dialogs.dart';
+// import 'package:chatting_app/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:image_picker/image_picker.dart';
 
 class ViewProfileScreen extends StatefulWidget {
   const ViewProfileScreen({super.key, required this.chatUser});

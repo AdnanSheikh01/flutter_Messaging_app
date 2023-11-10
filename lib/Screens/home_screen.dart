@@ -29,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     Api.SelfInfo();
-    Api.UpdateActiveStatus(true);
 
     SystemChannels.lifecycle.setMessageHandler((message) {
       log('Message: $message');
