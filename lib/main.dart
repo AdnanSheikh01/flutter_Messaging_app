@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:chatting_app/Screens/splash_screen.dart';
 import 'package:chatting_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,10 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // theme: ThemeData(primarySwatch: Colors.blue),
-        debugShowCheckedModeBanner: false,
-        title: 'Chat',
-        home: SplashScreen());
+        debugShowCheckedModeBanner: false, title: 'Chat', home: SplashScreen());
   }
 }
 

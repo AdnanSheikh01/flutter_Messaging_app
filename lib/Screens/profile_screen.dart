@@ -152,15 +152,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       if (_formkey.currentState!.validate()) {
                         _formkey.currentState!.save();
                         Api.UpdateInfo().then((value) => {
-                              dialogs.showSnackBar(context,
-                                  "Updated Successfully!", Colors.green)
+                              dialogs.showSnackBar(
+                                  context,
+                                  "Updated Successfully!",
+                                  Colors.green,
+                                  EdgeInsets.only(
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              .01))
                             });
                       }
                     },
-                    icon: Icon(Icons.edit),
+                    icon: Icon(
+                      Icons.edit,
+                      color: Colors.blue,
+                    ),
                     label: Text(
                       "UPDATE",
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16, color: Colors.black),
                     ),
                   )
                 ],
@@ -187,8 +196,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 utils().toast(error.toString());
               });
             },
-            label: Text("Log Out"),
-            icon: Icon(Icons.logout),
+            label: Text(
+              "Log Out",
+              style: TextStyle(color: Colors.white),
+            ),
+            icon: Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
           ),
         ),
       ),

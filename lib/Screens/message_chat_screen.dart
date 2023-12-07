@@ -1,7 +1,6 @@
 // import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatting_app/Screens/message_card.dart';
 import 'package:chatting_app/Screens/view_profile_screen.dart';
@@ -47,8 +46,8 @@ class _ChatScreenState extends State<ChatScreen> {
         child: GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: Scaffold(
-              backgroundColor: Colors.grey[200],
               appBar: AppBar(
+                  backgroundColor: Colors.white,
                   automaticallyImplyLeading: false,
                   flexibleSpace: InkWell(
                     onTap: () {
@@ -75,7 +74,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 },
                                 icon: Icon(
                                   Icons.arrow_back,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 )),
                             ClipRRect(
                               borderRadius: BorderRadius.circular(
@@ -110,7 +109,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                   style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                      color: Colors.black),
                                 ),
                                 Text(
                                   list.isNotEmpty
@@ -125,7 +124,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                           LastActive:
                                               widget.chatUser.lastActive),
                                   style: TextStyle(
-                                      fontSize: 13, color: Colors.white70),
+                                      fontSize: 13, color: Colors.black54),
                                 )
                               ],
                             ),
@@ -311,6 +310,7 @@ class _ChatScreenState extends State<ChatScreen> {
           padding: EdgeInsets.only(bottom: 8, right: 5, left: 2),
           child: CircleAvatar(
             radius: 25,
+            backgroundColor: Colors.black,
             child: IconButton(
                 onPressed: () {
                   if (_controller.text.isNotEmpty) {

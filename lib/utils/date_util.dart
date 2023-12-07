@@ -75,4 +75,21 @@ class MyDateUtil {
 
     return 'Last seen on ${time.day} $month on $formattedTime';
   }
+
+  static String getMessageTime(BuildContext context, String time,
+      {bool showYear = false}) {
+    final DateTime sent = DateTime.fromMillisecondsSinceEpoch(int.parse(time));
+    final DateTime now = DateTime.now();
+
+    final formatTime = TimeOfDay.fromDateTime(sent).format(context);
+    if (now.day == sent.day &&
+        now.month == sent.month &&
+        now.year == sent.year) {
+      return formatTime;
+    }
+
+    return now.year == sent.year
+        ? '$formatTime - ${sent.day} ${_getMonth(sent)}'
+        : '$formatTime - ${sent.day} ${_getMonth(sent)} ${sent.year}';
+  }
 }

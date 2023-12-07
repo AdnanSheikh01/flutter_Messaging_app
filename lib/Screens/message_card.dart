@@ -1,9 +1,14 @@
+import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatting_app/models/Apis.dart';
 import 'package:chatting_app/models/message.dart';
 import 'package:chatting_app/utils/date_util.dart';
+import 'package:chatting_app/utils/dialogs.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class MessageCard extends StatefulWidget {
   const MessageCard({super.key, required this.message});
@@ -16,9 +21,12 @@ class MessageCard extends StatefulWidget {
 class _MessageCardState extends State<MessageCard> {
   @override
   Widget build(BuildContext context) {
-    return Api.user.uid == widget.message.fromID
-        ? _SendMessages()
-        : _ReceiveMessages();
+    bool isMe = Api.user.uid == widget.message.fromID;
+    return InkWell(
+        onLongPress: () {
+          _bottomSheet(isMe);
+        },
+        child: isMe ? _SendMessages() : _ReceiveMessages());
   }
 
 // receive from another user
@@ -160,6 +168,120 @@ class _MessageCardState extends State<MessageCard> {
               ),
             )
           ]),
+        ),
+      ),
+    );
+  }
+
+  void _bottomSheet(bool isMe) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+      builder: (context) {
+        return ListView(shrinkWrap: true, children: [
+          Container(
+              height: 4,
+              margin: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * .015,
+                  horizontal: MediaQuery.of(context).size.width * .3),
+              decoration: BoxDecoration(
+                  color: Colors.grey, borderRadius: BorderRadius.circular(10))),
+          widget.message.type == Type.text
+              ? _optionItem(Icon(Icons.copy), "Copy Message", () async {
+                  await Clipboard.setData(
+                          ClipboardData(text: widget.message.msg))
+                      .then((value) {
+                    Navigator.pop(context);
+
+                    dialogs.showSnackBar(
+                        context,
+                        "Text Copied!",
+                        Colors.green,
+                        EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height * .09));
+                  });
+                })
+              : _optionItem(Icon(Icons.download), "Save Image", () async {
+                  try {
+                    var response = await Dio().get(widget.message.msg,
+                        options: Options(responseType: ResponseType.bytes));
+                    await ImageGallerySaver.saveImage(
+                      Uint8List.fromList(response.data),
+                      quality: 60,
+                      name: "Chat",
+                    );
+                    Navigator.pop(context);
+                    dialogs.showSnackBar(
+                        context,
+                        "Image Saved Sucessfully",
+                        Colors.green,
+                        EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height * .09));
+                  } catch (e) {
+                    log('Error while Saving: $e');
+                  }
+                }),
+          if (isMe)
+            _optionItem(
+                Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+                "Delete Message(From everyone)", () {
+              Api.deleteMessage(widget.message).then((value) {
+                Navigator.pop(context);
+                dialogs.showSnackBar(
+                    context,
+                    "Deleted",
+                    Colors.red,
+                    EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height * .09));
+              });
+            }),
+          if (isMe)
+            _optionItem(
+                Icon(Icons.arrow_outward_rounded),
+                'Sent at: ${MyDateUtil.getMessageTime(context, widget.message.sent)}',
+                () {}),
+          if (isMe)
+            _optionItem(
+                Icon(Icons.remove_red_eye_rounded),
+                widget.message.read.isEmpty
+                    ? "Read at: Not seen yet"
+                    : "Read at: ${MyDateUtil.getMessageTime(context, widget.message.sent)}",
+                () {})
+        ]);
+      },
+    );
+  }
+}
+
+class _optionItem extends StatelessWidget {
+  const _optionItem(this.icon, this.name, this.tap);
+  final Icon icon;
+  final String name;
+  final VoidCallback tap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: tap,
+      child: Padding(
+        padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * .05,
+            top: MediaQuery.of(context).size.width * .015,
+            bottom: MediaQuery.of(context).size.width * .03),
+        child: Row(
+          children: [
+            icon,
+            Flexible(
+                child: Text(
+              "   $name",
+              style: TextStyle(fontSize: 15, letterSpacing: 0.5),
+            ))
+          ],
         ),
       ),
     );

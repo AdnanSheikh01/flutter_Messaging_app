@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>627974758158-t6i98kllm0bv2a8v4o7coi7mm7v8n9v3.apps.googleusercontent.com</string>
+	<string>627974758158-dl0t92eapvt96sag8slup9p31oekj1v7.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.627974758158-t6i98kllm0bv2a8v4o7coi7mm7v8n9v3</string>
+	<string>com.googleusercontent.apps.627974758158-dl0t92eapvt96sag8slup9p31oekj1v7</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>627974758158-6qla55sftblp5e51c6v44m4tttiq9jlr.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.chattingApp</string>
+	<string>com.example.chattingApp.RunnerTests</string>
 	<key>PROJECT_ID</key>
 	<string>messaging-app-bf299</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:627974758158:ios:832f54ddbb18b50569815f</string>
+	<string>1:627974758158:ios:26a7a412799b21e969815f</string>
 </dict>
 </plist>

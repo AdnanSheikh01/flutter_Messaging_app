@@ -1,10 +1,9 @@
 import 'dart:developer';
-
 import 'package:chatting_app/Screens/profile_screen.dart';
 import 'package:chatting_app/Widgets/custom_card.dart';
-import 'package:chatting_app/Screens/contact_screen.dart';
 import 'package:chatting_app/models/Apis.dart';
 import 'package:chatting_app/models/chat_user.dart';
+import 'package:chatting_app/utils/dialogs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -71,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         border: InputBorder.none),
                     autofocus: true,
                     style: TextStyle(
-                        color: Colors.white, fontSize: 16, letterSpacing: .5),
+                        color: Colors.black, fontSize: 16, letterSpacing: .5),
                     onChanged: (val) {
                       _searchList.clear();
                       for (var i in _list) {
@@ -108,6 +107,20 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              _addChatUserDialog();
+            },
+            label: Text(
+              'Add User',
+              style: TextStyle(color: Colors.white),
+            ),
+            icon: Icon(
+              Icons.message_outlined,
+              color: Colors.white,
+            ),
+            backgroundColor: Colors.black,
+          ),
           body: StreamBuilder(
               stream: Api.getAllUsers(),
               builder: (context, snapshot) {
@@ -138,27 +151,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     : _list[index]);
                           });
                     } else {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "No Connection Found!!",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ContactScreen()));
-                            },
-                            child: Center(
-                                child: Text("Start a Chat",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        decoration: TextDecoration.underline))),
-                          )
-                        ],
+                      return Text(
+                        "No Connection Found!!",
+                        style: TextStyle(fontSize: 18),
                       );
                     }
                 }
@@ -166,5 +161,77 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     ));
+  }
+
+  void _addChatUserDialog() {
+    String email = '';
+
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              contentPadding: const EdgeInsets.only(
+                  left: 24, right: 24, top: 20, bottom: 10),
+
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+
+              //title
+              title: Row(
+                children: const [
+                  Icon(
+                    Icons.person_add,
+                    color: Colors.blue,
+                    size: 28,
+                  ),
+                  Text('  Add User')
+                ],
+              ),
+
+              //content
+              content: TextFormField(
+                maxLines: null,
+                onChanged: (value) => email = value,
+                decoration: InputDecoration(
+                    hintText: 'Email Id',
+                    prefixIcon: const Icon(Icons.email, color: Colors.blue),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15))),
+              ),
+
+              //actions
+              actions: [
+                //cancel button
+                MaterialButton(
+                    onPressed: () {
+                      //hide alert dialog
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Cancel',
+                        style: TextStyle(color: Colors.blue, fontSize: 16))),
+
+                //add button
+                MaterialButton(
+                    onPressed: () async {
+                      Navigator.pop(context);
+                      if (email.isNotEmpty) {
+                        await Api.AddChatUser(email).then((value) {
+                          if (!value) {
+                            dialogs.showSnackBar(
+                                context,
+                                'User does not Exists!',
+                                Colors.red,
+                                EdgeInsets.only(
+                                    bottom:
+                                        MediaQuery.of(context).size.height));
+                          }
+                        });
+                      }
+                    },
+                    child: const Text(
+                      'Add',
+                      style: TextStyle(color: Colors.blue, fontSize: 16),
+                    ))
+              ],
+            ));
   }
 }

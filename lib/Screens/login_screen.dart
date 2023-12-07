@@ -67,7 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
       dialogs.showSnackBar(
           context,
           'Something Went Wrong, try again later or Check Internet !!',
-          Colors.red);
+          Colors.red,
+          EdgeInsets.only(bottom: MediaQuery.of(context).size.height * .01));
       return null;
     }
   }

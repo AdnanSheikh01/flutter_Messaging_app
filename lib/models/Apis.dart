@@ -58,7 +58,7 @@ class Api {
           headers: {
             HttpHeaders.contentTypeHeader: 'application/json',
             HttpHeaders.authorizationHeader:
-                'key=AAAAkjY2Xw4:APA91bF9PhOteLXJC7db9VpTcVCXUUkhoU9sIkOmFgpXjF7-sKvozpoya9VYw_YN5BkggdE8rrfW1EeDw2Dvv6GhmAQzNGKPQvJp76cpFID3902LfYujBgW097aTGa1GQvSedpUO6ged'
+                'key=AAAAkjY2Xw4:APA91bH0gurdM9Tx1wzC4-Z7bUE2GtZCYEgsJlJfqVk5gkB8FLgY_x5bKlTA9CpN8bFrlTvS9AEmlAtzqh8XAqympB21VZ4_UZ7LzlkwztvG7clZVC0S4e5p51BFZXPj-S5ERdSBXnMk'
           },
           body: jsonEncode(body));
       log('Response status: ${res.statusCode}');
@@ -70,6 +70,25 @@ class Api {
 
   static Future<bool> userExists() async {
     return (await firestore.collection('users').doc(user.uid).get()).exists;
+  }
+
+  static Future<bool> AddChatUser(String email) async {
+    final val = await firestore
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+    if (val.docs.isNotEmpty && val.docs.first.id != user.uid) {
+      firestore
+          .collection('users')
+          .doc(user.uid)
+          .firestore
+          .collection('my_user')
+          .doc(val.docs.first.id)
+          .set({});
+      return true;
+    } else {
+      return false;
+    }
   }
 
   static Future<void> createUser() async {
@@ -195,5 +214,14 @@ class Api {
     });
     final ImageURL = await ref.getDownloadURL();
     await SendMessage(chatUser, ImageURL, Type.image);
+  }
+
+  static Future<void> deleteMessage(Messages message) async {
+    await firestore
+        .collection('chats/${getConversationID(message.toID)}/ messages/')
+        .doc(message.sent)
+        .delete();
+    if (message.type == Type.image)
+      await storage.refFromURL(message.msg).delete();
   }
 }
