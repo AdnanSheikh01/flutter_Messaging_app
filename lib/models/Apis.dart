@@ -12,6 +12,7 @@ import 'package:http/http.dart';
 
 class Api {
   static late ChatUser me;
+
   static FirebaseAuth auth = FirebaseAuth.instance;
   static FirebaseStorage storage = FirebaseStorage.instance;
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -122,7 +123,7 @@ class Api {
       List<String> userIds) {
     return firestore
         .collection('users')
-        .where('id', whereIn: userIds)
+        .where('id', whereIn: userIds.isEmpty ? [''] : userIds)
         .snapshots();
   }
 

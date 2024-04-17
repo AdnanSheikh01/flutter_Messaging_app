@@ -168,9 +168,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           : _list[index]);
                                 });
                           } else {
-                            return Text(
-                              "No Connection Found!!",
-                              style: TextStyle(fontSize: 18),
+                            return Center(
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "No Connection Found!!\nAdd by using below given Button",
+                                style: TextStyle(fontSize: 18),
+                              ),
                             );
                           }
                       }
