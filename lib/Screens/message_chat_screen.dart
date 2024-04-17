@@ -47,90 +47,90 @@ class _ChatScreenState extends State<ChatScreen> {
             onTap: () => FocusScope.of(context).unfocus(),
             child: Scaffold(
               appBar: AppBar(
-                  backgroundColor: Colors.white,
-                  automaticallyImplyLeading: false,
-                  flexibleSpace: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ViewProfileScreen(
-                                    chatUser: widget.chatUser,
-                                  )));
-                    },
-                    child: StreamBuilder(
-                        stream: Api.getUsersInfo(widget.chatUser),
-                        builder: (context, snapshot) {
-                          final data = snapshot.data?.docs;
-                          final list = data
-                                  ?.map((e) => ChatUser.fromJson(e.data()))
-                                  .toList() ??
-                              [];
+                backgroundColor: Colors.white,
+                automaticallyImplyLeading: false,
+                flexibleSpace: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ViewProfileScreen(
+                                  chatUser: widget.chatUser,
+                                )));
+                  },
+                  child: StreamBuilder(
+                      stream: Api.getUsersInfo(widget.chatUser),
+                      builder: (context, snapshot) {
+                        final data = snapshot.data?.docs;
+                        final list = data
+                                ?.map((e) => ChatUser.fromJson(e.data()))
+                                .toList() ??
+                            [];
 
-                          return Row(children: [
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(
-                                  Icons.arrow_back,
-                                  color: Colors.black,
-                                )),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  MediaQuery.of(context).size.height * .03),
-                              child: CachedNetworkImage(
-                                  width:
-                                      MediaQuery.of(context).size.height * .055,
-                                  height:
-                                      MediaQuery.of(context).size.height * .055,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) =>
-                                      CircularProgressIndicator(),
-                                  imageUrl: list.isNotEmpty
-                                      ? list[0].image
-                                      : widget.chatUser.image,
-                                  errorWidget: (context, url, error) =>
-                                      CircleAvatar(
-                                        child: Icon(CupertinoIcons.person),
-                                      )),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  list.isNotEmpty
-                                      ? list[0].name
-                                      : widget.chatUser.name,
-                                  style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                                ),
-                                Text(
-                                  list.isNotEmpty
-                                      ? list[0].isOnline
-                                          ? 'Online'
-                                          : MyDateUtil.LastActiveTime(
-                                              context: context,
-                                              LastActive: list[0].lastActive,
-                                            )
-                                      : MyDateUtil.LastActiveTime(
-                                          context: context,
-                                          LastActive:
-                                              widget.chatUser.lastActive),
-                                  style: TextStyle(
-                                      fontSize: 13, color: Colors.black54),
-                                )
-                              ],
-                            ),
-                          ]);
-                        }),
-                  )),
+                        return Row(children: [
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: Colors.black,
+                              )),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(
+                                MediaQuery.of(context).size.height * .03),
+                            child: CachedNetworkImage(
+                                width:
+                                    MediaQuery.of(context).size.height * .055,
+                                height:
+                                    MediaQuery.of(context).size.height * .055,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                imageUrl: list.isNotEmpty
+                                    ? list[0].image
+                                    : widget.chatUser.image,
+                                errorWidget: (context, url, error) =>
+                                    CircleAvatar(
+                                      child: Icon(CupertinoIcons.person),
+                                    )),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                list.isNotEmpty
+                                    ? list[0].name
+                                    : widget.chatUser.name,
+                                style: TextStyle(
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
+                              Text(
+                                list.isNotEmpty
+                                    ? list[0].isOnline
+                                        ? 'Online'
+                                        : MyDateUtil.LastActiveTime(
+                                            context: context,
+                                            LastActive: list[0].lastActive,
+                                          )
+                                    : MyDateUtil.LastActiveTime(
+                                        context: context,
+                                        LastActive: widget.chatUser.lastActive),
+                                style: TextStyle(
+                                    fontSize: 13, color: Colors.black54),
+                              )
+                            ],
+                          ),
+                        ]);
+                      }),
+                ),
+              ),
               body: WillPopScope(
                 child: Column(
                   children: [
@@ -216,7 +216,6 @@ class _ChatScreenState extends State<ChatScreen> {
     return SizedBox(
       height: MediaQuery.of(context).size.height * .35,
       child: EmojiPicker(
-        config: const Config(columns: 7),
         textEditingController: TextEditingController(),
         onEmojiSelected: (category, emoji) {
           print(emoji);

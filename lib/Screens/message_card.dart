@@ -5,7 +5,6 @@ import 'package:chatting_app/models/message.dart';
 import 'package:chatting_app/utils/date_util.dart';
 import 'package:chatting_app/utils/dialogs.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';

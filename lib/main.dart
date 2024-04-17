@@ -32,7 +32,7 @@ _initializeFirebase() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  var result = await FlutterNotificationChannel.registerNotificationChannel(
+  var result = await FlutterNotificationChannel().registerNotificationChannel(
       description: 'For Showing Message Notification',
       id: 'chats',
       importance: NotificationImportance.IMPORTANCE_HIGH,
