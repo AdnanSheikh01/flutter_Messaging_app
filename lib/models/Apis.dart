@@ -73,6 +73,7 @@ class Api {
     return (await firestore.collection('users').doc(user.uid).get()).exists;
   }
 
+// For Adding User
   static Future<bool> AddChatUser(String email) async {
     final val = await firestore
         .collection('users')
@@ -82,7 +83,6 @@ class Api {
       firestore
           .collection('users')
           .doc(user.uid)
-          .firestore
           .collection('my_user')
           .doc(val.docs.first.id)
           .set({});
@@ -119,6 +119,7 @@ class Api {
         .snapshots();
   }
 
+// To get all the known user of individual
   static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers(
       List<String> userIds) {
     return firestore
@@ -127,6 +128,7 @@ class Api {
         .snapshots();
   }
 
+//To send the first message if we know the anothwer user
   static Future<void> SendFirstMessage(
       ChatUser chatUser, String msg, Type type) async {
     await firestore
@@ -144,6 +146,7 @@ class Api {
         .update({'name': me.name, 'about': me.about});
   }
 
+// To update the details of our profiles
   static Future<void> updateProfile(File file) async {
     final ext = file.path.split('.').last;
     log('Extension: $ext');
@@ -189,6 +192,7 @@ class Api {
         .snapshots();
   }
 
+// To send the message to second user
   static Future<void> SendMessage(
       ChatUser chatUser, String msg, Type type) async {
     final time = DateTime.now().millisecondsSinceEpoch.toString();
@@ -207,6 +211,7 @@ class Api {
         sendPushNotification(chatUser, type == Type.text ? msg : 'Photo'));
   }
 
+//To get update every time when message send by me
   static Future<void> updateMessageReadStatus(Messages message) async {
     firestore
         .collection('chats/${getConversationID(message.fromID)}/ messages/')

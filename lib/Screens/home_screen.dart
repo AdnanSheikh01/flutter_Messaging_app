@@ -171,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             return Center(
                               child: Text(
                                 textAlign: TextAlign.center,
-                                "No Connection Found!!\nAdd by using below given Button",
+                                "No Connection Found!!\n(Add by using below given Button)",
                                 style: TextStyle(fontSize: 18),
                               ),
                             );
@@ -213,6 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               //content
               content: TextFormField(
+                autofocus: true,
                 maxLines: null,
                 onChanged: (value) => email = value,
                 decoration: InputDecoration(
@@ -242,11 +243,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (!value) {
                             dialogs.showSnackBar(
                                 context,
-                                'User does not Exists!',
+                                'User does not Exists.',
                                 Colors.red,
                                 EdgeInsets.only(
-                                    bottom:
-                                        MediaQuery.of(context).size.height));
+                                    bottom: MediaQuery.of(context).size.height *
+                                        .01));
                           }
                         });
                       }
