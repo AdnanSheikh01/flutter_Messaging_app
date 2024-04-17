@@ -11,6 +11,7 @@ import 'package:chatting_app/utils/date_util.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -43,173 +44,169 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: GestureDetector(
-            onTap: () => FocusScope.of(context).unfocus(),
-            child: Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.white,
-                automaticallyImplyLeading: false,
-                flexibleSpace: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ViewProfileScreen(
-                                  chatUser: widget.chatUser,
-                                )));
-                  },
-                  child: StreamBuilder(
-                      stream: Api.getUsersInfo(widget.chatUser),
-                      builder: (context, snapshot) {
-                        final data = snapshot.data?.docs;
-                        final list = data
-                                ?.map((e) => ChatUser.fromJson(e.data()))
-                                .toList() ??
-                            [];
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            flexibleSpace: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ViewProfileScreen(
+                              chatUser: widget.chatUser,
+                            )));
+              },
+              child: StreamBuilder(
+                  stream: Api.getUsersInfo(widget.chatUser),
+                  builder: (context, snapshot) {
+                    final data = snapshot.data?.docs;
+                    final list = data
+                            ?.map((e) => ChatUser.fromJson(e.data()))
+                            .toList() ??
+                        [];
 
-                        return Row(children: [
-                          IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: Icon(
-                                Icons.arrow_back,
-                                color: Colors.black,
-                              )),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(
-                                MediaQuery.of(context).size.height * .03),
-                            child: CachedNetworkImage(
-                                width:
-                                    MediaQuery.of(context).size.height * .055,
-                                height:
-                                    MediaQuery.of(context).size.height * .055,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                imageUrl: list.isNotEmpty
-                                    ? list[0].image
-                                    : widget.chatUser.image,
-                                errorWidget: (context, url, error) =>
-                                    CircleAvatar(
-                                      child: Icon(CupertinoIcons.person),
-                                    )),
+                    return Row(children: [
+                      IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: Colors.black,
+                          )),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                            MediaQuery.of(context).size.height * .03),
+                        child: CachedNetworkImage(
+                            width: MediaQuery.of(context).size.height * .055,
+                            height: MediaQuery.of(context).size.height * .055,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            imageUrl: list.isNotEmpty
+                                ? list[0].image
+                                : widget.chatUser.image,
+                            errorWidget: (context, url, error) => CircleAvatar(
+                                  child: Icon(CupertinoIcons.person),
+                                )),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            list.isNotEmpty
+                                ? list[0].name
+                                : widget.chatUser.name,
+                            style: TextStyle(
+                                fontSize: 19,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                list.isNotEmpty
-                                    ? list[0].name
-                                    : widget.chatUser.name,
-                                style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
-                              Text(
-                                list.isNotEmpty
-                                    ? list[0].isOnline
-                                        ? 'Online'
-                                        : MyDateUtil.LastActiveTime(
-                                            context: context,
-                                            LastActive: list[0].lastActive,
-                                          )
+                          Text(
+                            list.isNotEmpty
+                                ? list[0].isOnline
+                                    ? 'Online'
                                     : MyDateUtil.LastActiveTime(
                                         context: context,
-                                        LastActive: widget.chatUser.lastActive),
-                                style: TextStyle(
-                                    fontSize: 13, color: Colors.black54),
-                              )
-                            ],
-                          ),
-                        ]);
-                      }),
-                ),
-              ),
-              body: WillPopScope(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: StreamBuilder(
-                        stream: Api.getAllMessages(widget.chatUser),
-                        builder: (context, snapshot) {
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.waiting:
-                            case ConnectionState.none:
-                              return SizedBox();
-                            case ConnectionState.done:
-                            case ConnectionState.active:
-                              final data = snapshot.data?.docs;
-
-                              _list = data
-                                      ?.map((e) => Messages.fromJson(e.data()))
-                                      .toList() ??
-                                  [];
-
-                              if (_list.isNotEmpty) {
-                                return ListView.builder(
-                                    reverse: true,
-                                    physics: BouncingScrollPhysics(),
-                                    padding: EdgeInsets.only(
-                                        top:
-                                            MediaQuery.of(context).size.height *
-                                                .01),
-                                    itemCount: _list.length,
-                                    itemBuilder: (context, index) {
-                                      return MessageCard(
-                                        message: _list[index],
-                                      );
-                                    });
-                              } else {
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Center(
-                                      child: Text(
-                                        "Say Hello!! 👋",
-                                        style: TextStyle(fontSize: 18),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }
-                          }
-                        },
+                                        LastActive: list[0].lastActive,
+                                      )
+                                : MyDateUtil.LastActiveTime(
+                                    context: context,
+                                    LastActive: widget.chatUser.lastActive),
+                            style:
+                                TextStyle(fontSize: 13, color: Colors.black54),
+                          )
+                        ],
                       ),
-                    ),
-                    if (_isUploading)
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 20),
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                            ),
-                          )),
-                    _chatInput(),
-                    show ? EmojiSelect() : Container(),
-                  ],
+                    ]);
+                  }),
+            ),
+          ),
+          body: WillPopScope(
+            child: Column(
+              children: [
+                Expanded(
+                  child: StreamBuilder(
+                    stream: Api.getAllMessages(widget.chatUser),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.waiting:
+                        case ConnectionState.none:
+                          return SizedBox();
+                        case ConnectionState.done:
+                        case ConnectionState.active:
+                          final data = snapshot.data?.docs;
+
+                          _list = data
+                                  ?.map((e) => Messages.fromJson(e.data()))
+                                  .toList() ??
+                              [];
+
+                          if (_list.isNotEmpty) {
+                            return ListView.builder(
+                                reverse: true,
+                                physics: BouncingScrollPhysics(),
+                                padding: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.height *
+                                        .01),
+                                itemCount: _list.length,
+                                itemBuilder: (context, index) {
+                                  return MessageCard(
+                                    message: _list[index],
+                                  );
+                                });
+                          } else {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    "Say Hello!! 👋",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }
+                      }
+                    },
+                  ),
                 ),
-                onWillPop: () {
-                  if (show) {
-                    setState(() {
-                      show = false;
-                    });
-                  } else {
-                    Navigator.pop(context);
-                  }
-                  return Future.value(false);
-                },
-                //   ],
-                // ),
-              ),
-            )));
+                if (_isUploading)
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 20),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ),
+                      )),
+                _chatInput(),
+                show ? EmojiSelect() : Container(),
+              ],
+            ),
+            onWillPop: () {
+              if (show) {
+                setState(() {
+                  show = false;
+                });
+              } else {
+                Navigator.pop(context);
+              }
+              return Future.value(false);
+            },
+          ),
+        ),
+      ),
+    );
   }
 
   Widget EmojiSelect() {
@@ -235,6 +232,15 @@ class _ChatScreenState extends State<ChatScreen> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
             child: TextFormField(
+              onChanged: (value) {
+                if (value.startsWith(" ") && _controller.selection.start <= 1) {
+                  _controller.text = value.trimLeft();
+                  _controller.selection = TextSelection.fromPosition(
+                    TextPosition(offset: _controller.text.length),
+                  );
+                }
+                ;
+              },
               controller: _controller,
               focusNode: focusNode,
               keyboardType: TextInputType.multiline,
@@ -311,22 +317,23 @@ class _ChatScreenState extends State<ChatScreen> {
             radius: 25,
             backgroundColor: Colors.black,
             child: IconButton(
-                onPressed: () {
-                  if (_controller.text.isNotEmpty) {
-                    if (_list.isEmpty) {
-                      Api.SendFirstMessage(
-                          widget.chatUser, _controller.text, Type.text);
-                    } else {
-                      Api.SendMessage(
-                          widget.chatUser, _controller.text, Type.text);
-                    }
-                    _controller.text = '';
+              onPressed: () {
+                if (_controller.text.isNotEmpty) {
+                  if (_list.isEmpty) {
+                    Api.SendFirstMessage(
+                        widget.chatUser, _controller.text.trim(), Type.text);
+                  } else {
+                    Api.SendMessage(
+                        widget.chatUser, _controller.text.trim(), Type.text);
                   }
-                },
-                icon: const Icon(
-                  Icons.send,
-                  color: Colors.white,
-                )),
+                  _controller.text = '';
+                }
+              },
+              icon: const Icon(
+                Icons.send,
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
       ],
