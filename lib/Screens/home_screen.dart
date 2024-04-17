@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                     },
                   )
-                : Text("Message"),
+                : Text("Messages"),
             // centerTitle: true,
 
             actions: [
