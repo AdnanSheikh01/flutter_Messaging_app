@@ -116,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         hintText: "e.g Ram Kumar",
                         prefixIcon: Icon(
                           Icons.person,
-                          color: Colors.blue,
+                          color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20))),
@@ -134,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         label: Text("About"),
                         prefixIcon: Icon(
                           Icons.error_outline,
-                          color: Colors.blue,
+                          color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20))),
@@ -165,7 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     icon: Icon(
                       Icons.edit,
-                      color: Colors.blue,
+                      color: Colors.black,
                     ),
                     label: Text(
                       "UPDATE",
