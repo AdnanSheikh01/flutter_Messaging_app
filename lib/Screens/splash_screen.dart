@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 2), () {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
@@ -46,15 +46,15 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(height: MediaQuery.of(context).size.height * .15),
             Image.asset(
               "images/messenger.png",
-              height: MediaQuery.of(context).size.height * .3,
+              height: MediaQuery.of(context).size.height * .4,
               width: MediaQuery.of(context).size.width * .6,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * .25,
+              height: MediaQuery.of(context).size.height * .15,
             ),
             Text(
               "Welcome to Chat",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             )
           ],
         ),

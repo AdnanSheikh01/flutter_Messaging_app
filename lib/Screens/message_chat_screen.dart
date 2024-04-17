@@ -313,8 +313,13 @@ class _ChatScreenState extends State<ChatScreen> {
             child: IconButton(
                 onPressed: () {
                   if (_controller.text.isNotEmpty) {
-                    Api.SendMessage(
-                        widget.chatUser, _controller.text, Type.text);
+                    if (_list.isEmpty) {
+                      Api.SendFirstMessage(
+                          widget.chatUser, _controller.text, Type.text);
+                    } else {
+                      Api.SendMessage(
+                          widget.chatUser, _controller.text, Type.text);
+                    }
                     _controller.text = '';
                   }
                 },

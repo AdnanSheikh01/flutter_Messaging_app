@@ -6,6 +6,7 @@ import 'package:chatting_app/utils/dialogs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -77,61 +78,70 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          "Welcome to Chat",
-          style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25),
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: SingleChildScrollView(
           child: Center(
             child: Column(
               children: <Widget>[
-                SizedBox(height: 40),
-                Image.asset(
-                  "images/messenger.png",
-                  height: MediaQuery.of(context).size.height * .35,
-                  width: MediaQuery.of(context).size.width * .6,
+                SizedBox(height: MediaQuery.of(context).size.height * .12),
+                Text(
+                  "Welcome to Chat",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35),
                 ),
-                SizedBox(height: 90),
+                Text(
+                  "Let's go into your account",
+                  style: TextStyle(color: Colors.black, fontSize: 16),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * .07),
+                Lottie.asset('assets/login_page.json'),
+                SizedBox(height: MediaQuery.of(context).size.height * .09),
                 Container(
                   height: MediaQuery.of(context).size.height * .07,
                   width: MediaQuery.of(context).size.width * .75,
-                  child: ElevatedButton.icon(
+                  child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Colors.black,
                         shape: const StadiumBorder(),
                         elevation: 1),
                     onPressed: () {
                       _handleGoogleBtnClick();
                     },
-                    icon: Image.asset(
-                      'images/google.png',
-                      height: MediaQuery.of(context).size.height * .03,
-                    ),
-                    label: RichText(
-                      text: const TextSpan(
-                        style: TextStyle(color: Colors.black, fontSize: 16),
-                        children: [
-                          TextSpan(
-                              text: 'Login with ',
-                              style: TextStyle(color: Colors.white)),
-                          TextSpan(
-                              text: 'Google',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white)),
-                        ],
+                    child: Stack(children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Login with ',
+                                style: const TextStyle(
+                                    fontSize: 16, color: Colors.white),
+                              ),
+                              TextSpan(
+                                text: 'Google',
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Image.asset(
+                          'images/google.png',
+                          height: MediaQuery.of(context).size.height * .03,
+                        ),
+                      )
+                    ]),
                   ),
-                )
+                ),
               ],
             ),
           ),

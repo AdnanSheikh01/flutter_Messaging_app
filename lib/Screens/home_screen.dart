@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                     },
                   )
-                : Text("Messages"),
+                : Text("Message"),
             // centerTitle: true,
 
             actions: [
@@ -122,42 +122,63 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.black,
           ),
           body: StreamBuilder(
-              stream: Api.getAllUsers(),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                  case ConnectionState.none:
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  case ConnectionState.done:
-                  case ConnectionState.active:
-                    final data = snapshot.data?.docs;
-                    _list = data
-                            ?.map((e) => ChatUser.fromJson(e.data()))
-                            .toList() ??
-                        [];
-                    if (_list.isNotEmpty) {
-                      return ListView.builder(
-                          physics: BouncingScrollPhysics(),
-                          padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * .01),
-                          itemCount:
-                              _issearching ? _searchList.length : _list.length,
-                          itemBuilder: (context, index) {
-                            return CustomCard(
-                                chatUser: _issearching
-                                    ? _searchList[index]
-                                    : _list[index]);
-                          });
-                    } else {
-                      return Text(
-                        "No Connection Found!!",
-                        style: TextStyle(fontSize: 18),
-                      );
-                    }
-                }
-              }),
+            stream: Api.getMyUserId(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                case ConnectionState.none:
+                  return Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: Colors.black,
+                    ),
+                  );
+                case ConnectionState.done:
+                case ConnectionState.active:
+                  return StreamBuilder(
+                    stream: Api.getAllUsers(
+                        snapshot.data?.docs.map((e) => e.id).toList() ?? []),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.waiting:
+                        case ConnectionState.none:
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        case ConnectionState.done:
+                        case ConnectionState.active:
+                          final data = snapshot.data?.docs;
+                          _list = data
+                                  ?.map((e) => ChatUser.fromJson(e.data()))
+                                  .toList() ??
+                              [];
+                          if (_list.isNotEmpty) {
+                            return ListView.builder(
+                                physics: BouncingScrollPhysics(),
+                                padding: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.height *
+                                        .01),
+                                itemCount: _issearching
+                                    ? _searchList.length
+                                    : _list.length,
+                                itemBuilder: (context, index) {
+                                  return CustomCard(
+                                      chatUser: _issearching
+                                          ? _searchList[index]
+                                          : _list[index]);
+                                });
+                          } else {
+                            return Text(
+                              "No Connection Found!!",
+                              style: TextStyle(fontSize: 18),
+                            );
+                          }
+                      }
+                    },
+                  );
+              }
+            },
+          ),
         ),
       ),
     ));
@@ -180,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: const [
                   Icon(
                     Icons.person_add,
-                    color: Colors.blue,
+                    color: Colors.black,
                     size: 28,
                   ),
                   Text('  Add User')
@@ -193,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onChanged: (value) => email = value,
                 decoration: InputDecoration(
                     hintText: 'Email Id',
-                    prefixIcon: const Icon(Icons.email, color: Colors.blue),
+                    prefixIcon: const Icon(Icons.email, color: Colors.black),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15))),
               ),
@@ -207,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.pop(context);
                     },
                     child: const Text('Cancel',
-                        style: TextStyle(color: Colors.blue, fontSize: 16))),
+                        style: TextStyle(color: Colors.black, fontSize: 16))),
 
                 //add button
                 MaterialButton(
@@ -229,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: const Text(
                       'Add',
-                      style: TextStyle(color: Colors.blue, fontSize: 16),
+                      style: TextStyle(color: Colors.black, fontSize: 16),
                     ))
               ],
             ));
