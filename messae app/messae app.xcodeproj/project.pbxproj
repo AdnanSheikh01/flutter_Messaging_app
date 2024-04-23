@@ -1,0 +1,593 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18E6491F2BD5003F00D60084 /* messae_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6491E2BD5003F00D60084 /* messae_appApp.swift */; };
+		18E649212BD5003F00D60084 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E649202BD5003F00D60084 /* ContentView.swift */; };
+		18E649232BD5004200D60084 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18E649222BD5004200D60084 /* Assets.xcassets */; };
+		18E649262BD5004200D60084 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18E649252BD5004200D60084 /* Preview Assets.xcassets */; };
+		18E649302BD5004200D60084 /* messae_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6492F2BD5004200D60084 /* messae_appTests.swift */; };
+		18E6493A2BD5004200D60084 /* messae_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E649392BD5004200D60084 /* messae_appUITests.swift */; };
+		18E6493C2BD5004200D60084 /* messae_appUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6493B2BD5004200D60084 /* messae_appUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		18E6492C2BD5004200D60084 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18E649132BD5003F00D60084 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18E6491A2BD5003F00D60084;
+			remoteInfo = "messae app";
+		};
+		18E649362BD5004200D60084 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18E649132BD5003F00D60084 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18E6491A2BD5003F00D60084;
+			remoteInfo = "messae app";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		18E6491B2BD5003F00D60084 /* messae app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "messae app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		18E6491E2BD5003F00D60084 /* messae_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messae_appApp.swift; sourceTree = "<group>"; };
+		18E649202BD5003F00D60084 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		18E649222BD5004200D60084 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		18E649252BD5004200D60084 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		18E6492B2BD5004200D60084 /* messae appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "messae appTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		18E6492F2BD5004200D60084 /* messae_appTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messae_appTests.swift; sourceTree = "<group>"; };
+		18E649352BD5004200D60084 /* messae appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "messae appUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		18E649392BD5004200D60084 /* messae_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messae_appUITests.swift; sourceTree = "<group>"; };
+		18E6493B2BD5004200D60084 /* messae_appUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messae_appUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		18E649182BD5003F00D60084 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18E649282BD5004200D60084 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18E649322BD5004200D60084 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18E649122BD5003F00D60084 = {
+			isa = PBXGroup;
+			children = (
+				18E6491D2BD5003F00D60084 /* messae app */,
+				18E6492E2BD5004200D60084 /* messae appTests */,
+				18E649382BD5004200D60084 /* messae appUITests */,
+				18E6491C2BD5003F00D60084 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		18E6491C2BD5003F00D60084 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18E6491B2BD5003F00D60084 /* messae app.app */,
+				18E6492B2BD5004200D60084 /* messae appTests.xctest */,
+				18E649352BD5004200D60084 /* messae appUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		18E6491D2BD5003F00D60084 /* messae app */ = {
+			isa = PBXGroup;
+			children = (
+				18E6491E2BD5003F00D60084 /* messae_appApp.swift */,
+				18E649202BD5003F00D60084 /* ContentView.swift */,
+				18E649222BD5004200D60084 /* Assets.xcassets */,
+				18E649242BD5004200D60084 /* Preview Content */,
+			);
+			path = "messae app";
+			sourceTree = "<group>";
+		};
+		18E649242BD5004200D60084 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				18E649252BD5004200D60084 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		18E6492E2BD5004200D60084 /* messae appTests */ = {
+			isa = PBXGroup;
+			children = (
+				18E6492F2BD5004200D60084 /* messae_appTests.swift */,
+			);
+			path = "messae appTests";
+			sourceTree = "<group>";
+		};
+		18E649382BD5004200D60084 /* messae appUITests */ = {
+			isa = PBXGroup;
+			children = (
+				18E649392BD5004200D60084 /* messae_appUITests.swift */,
+				18E6493B2BD5004200D60084 /* messae_appUITestsLaunchTests.swift */,
+			);
+			path = "messae appUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		18E6491A2BD5003F00D60084 /* messae app */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18E6493F2BD5004200D60084 /* Build configuration list for PBXNativeTarget "messae app" */;
+			buildPhases = (
+				18E649172BD5003F00D60084 /* Sources */,
+				18E649182BD5003F00D60084 /* Frameworks */,
+				18E649192BD5003F00D60084 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "messae app";
+			productName = "messae app";
+			productReference = 18E6491B2BD5003F00D60084 /* messae app.app */;
+			productType = "com.apple.product-type.application";
+		};
+		18E6492A2BD5004200D60084 /* messae appTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18E649422BD5004200D60084 /* Build configuration list for PBXNativeTarget "messae appTests" */;
+			buildPhases = (
+				18E649272BD5004200D60084 /* Sources */,
+				18E649282BD5004200D60084 /* Frameworks */,
+				18E649292BD5004200D60084 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18E6492D2BD5004200D60084 /* PBXTargetDependency */,
+			);
+			name = "messae appTests";
+			productName = "messae appTests";
+			productReference = 18E6492B2BD5004200D60084 /* messae appTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		18E649342BD5004200D60084 /* messae appUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18E649452BD5004200D60084 /* Build configuration list for PBXNativeTarget "messae appUITests" */;
+			buildPhases = (
+				18E649312BD5004200D60084 /* Sources */,
+				18E649322BD5004200D60084 /* Frameworks */,
+				18E649332BD5004200D60084 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18E649372BD5004200D60084 /* PBXTargetDependency */,
+			);
+			name = "messae appUITests";
+			productName = "messae appUITests";
+			productReference = 18E649352BD5004200D60084 /* messae appUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		18E649132BD5003F00D60084 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					18E6491A2BD5003F00D60084 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					18E6492A2BD5004200D60084 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = 18E6491A2BD5003F00D60084;
+					};
+					18E649342BD5004200D60084 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = 18E6491A2BD5003F00D60084;
+					};
+				};
+			};
+			buildConfigurationList = 18E649162BD5003F00D60084 /* Build configuration list for PBXProject "messae app" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 18E649122BD5003F00D60084;
+			productRefGroup = 18E6491C2BD5003F00D60084 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				18E6491A2BD5003F00D60084 /* messae app */,
+				18E6492A2BD5004200D60084 /* messae appTests */,
+				18E649342BD5004200D60084 /* messae appUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		18E649192BD5003F00D60084 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18E649262BD5004200D60084 /* Preview Assets.xcassets in Resources */,
+				18E649232BD5004200D60084 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18E649292BD5004200D60084 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18E649332BD5004200D60084 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		18E649172BD5003F00D60084 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18E649212BD5003F00D60084 /* ContentView.swift in Sources */,
+				18E6491F2BD5003F00D60084 /* messae_appApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18E649272BD5004200D60084 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18E649302BD5004200D60084 /* messae_appTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18E649312BD5004200D60084 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18E6493C2BD5004200D60084 /* messae_appUITestsLaunchTests.swift in Sources */,
+				18E6493A2BD5004200D60084 /* messae_appUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		18E6492D2BD5004200D60084 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18E6491A2BD5003F00D60084 /* messae app */;
+			targetProxy = 18E6492C2BD5004200D60084 /* PBXContainerItemProxy */;
+		};
+		18E649372BD5004200D60084 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18E6491A2BD5003F00D60084 /* messae app */;
+			targetProxy = 18E649362BD5004200D60084 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		18E6493D2BD5004200D60084 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		18E6493E2BD5004200D60084 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		18E649402BD5004200D60084 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"messae app/Preview Content\"";
+				DEVELOPMENT_TEAM = 82A2Q58LK3;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Adnan.messae-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		18E649412BD5004200D60084 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"messae app/Preview Content\"";
+				DEVELOPMENT_TEAM = 82A2Q58LK3;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Adnan.messae-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		18E649432BD5004200D60084 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 82A2Q58LK3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Adnan.messae-appTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/messae app.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/messae app";
+			};
+			name = Debug;
+		};
+		18E649442BD5004200D60084 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 82A2Q58LK3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Adnan.messae-appTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/messae app.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/messae app";
+			};
+			name = Release;
+		};
+		18E649462BD5004200D60084 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 82A2Q58LK3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Adnan.messae-appUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "messae app";
+			};
+			name = Debug;
+		};
+		18E649472BD5004200D60084 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 82A2Q58LK3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Adnan.messae-appUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "messae app";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		18E649162BD5003F00D60084 /* Build configuration list for PBXProject "messae app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18E6493D2BD5004200D60084 /* Debug */,
+				18E6493E2BD5004200D60084 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18E6493F2BD5004200D60084 /* Build configuration list for PBXNativeTarget "messae app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18E649402BD5004200D60084 /* Debug */,
+				18E649412BD5004200D60084 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18E649422BD5004200D60084 /* Build configuration list for PBXNativeTarget "messae appTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18E649432BD5004200D60084 /* Debug */,
+				18E649442BD5004200D60084 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18E649452BD5004200D60084 /* Build configuration list for PBXNativeTarget "messae appUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18E649462BD5004200D60084 /* Debug */,
+				18E649472BD5004200D60084 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 18E649132BD5003F00D60084 /* Project object */;
+}
