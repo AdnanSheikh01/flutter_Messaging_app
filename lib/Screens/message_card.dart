@@ -46,7 +46,6 @@ class _MessageCardState extends State<MessageCard> {
                   bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10))),
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-          // color: Colors.grey[500],
           child: Stack(children: [
             Padding(
               padding: widget.message.type == Type.text

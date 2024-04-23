@@ -11,7 +11,6 @@ import 'package:chatting_app/utils/date_util.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -30,7 +29,6 @@ class _ChatScreenState extends State<ChatScreen> {
   FocusNode focusNode = FocusNode();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     focusNode.addListener(() {
       if (focusNode.hasFocus) {
@@ -129,6 +127,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   }),
             ),
           ),
+          // ignore: deprecated_member_use
           body: WillPopScope(
             child: Column(
               children: [
@@ -242,6 +241,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ;
               },
               controller: _controller,
+              // textInputAction: TextInputAction.go,
               focusNode: focusNode,
               keyboardType: TextInputType.multiline,
               maxLines: null,
@@ -318,16 +318,17 @@ class _ChatScreenState extends State<ChatScreen> {
             backgroundColor: Colors.black,
             child: IconButton(
               onPressed: () {
-                if (_controller.text.isNotEmpty) {
-                  if (_list.isEmpty) {
-                    Api.SendFirstMessage(
-                        widget.chatUser, _controller.text.trim(), Type.text);
-                  } else {
-                    Api.SendMessage(
-                        widget.chatUser, _controller.text.trim(), Type.text);
-                  }
-                  _controller.text = '';
+                if (_controller.text.trim().isEmpty) {
+                  _controller.clear();
+                  return;
+                } else if (_list.isEmpty) {
+                  Api.SendFirstMessage(
+                      widget.chatUser, _controller.text.trim(), Type.text);
+                } else {
+                  Api.SendMessage(
+                      widget.chatUser, _controller.text.trim(), Type.text);
                 }
+                _controller.text = '';
               },
               icon: const Icon(
                 Icons.send,
