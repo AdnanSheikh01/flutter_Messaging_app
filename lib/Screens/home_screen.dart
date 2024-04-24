@@ -233,10 +233,14 @@ class _HomeScreenState extends State<HomeScreen> {
           key: _key,
           child: TextFormField(
             autofocus: true,
+            textInputAction: TextInputAction.done,
             maxLines: null,
+            cursorColor: Colors.black,
             validator: ValidationBuilder().email().maxLength(50).build(),
             onChanged: (value) => email = value,
             decoration: InputDecoration(
+                focusedBorder:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                 hintText: 'Email Id',
                 prefixIcon: const Icon(Icons.email, color: Colors.black),
                 border: OutlineInputBorder(
