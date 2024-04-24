@@ -151,16 +151,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () {
                       if (_formkey.currentState!.validate()) {
                         _formkey.currentState!.save();
-                        Api.UpdateInfo().then((value) => {
-                              dialogs.showSnackBar(
-                                  context,
-                                  "Updated Successfully!",
-                                  Colors.green,
-                                  EdgeInsets.only(
-                                      bottom:
-                                          MediaQuery.of(context).size.height *
-                                              .01))
-                            });
+                        Api.UpdateInfo().then(
+                          (value) => {
+                            dialogs.showSnackBar(
+                              context,
+                              "Updated Successfully!",
+                              Colors.green,
+                              EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.of(context).size.height * .01),
+                            ),
+                          },
+                        );
                       }
                     },
                     icon: Icon(
@@ -217,84 +219,89 @@ class _ProfileScreenState extends State<ProfileScreen> {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), topRight: Radius.circular(10))),
       builder: (context) {
-        return ListView(shrinkWrap: true, children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Text(
-              "Profile Photo",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+        return ListView(
+          shrinkWrap: true,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                "Profile Photo",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.pink,
-                      child: IconButton(
-                        onPressed: () async {
-                          final ImagePicker picker = ImagePicker();
-                          // Pick an image from camera.
-                          final XFile? image = await picker.pickImage(
-                              source: ImageSource.camera, imageQuality: 80);
-                          if (image != null) {
-                            log('Image Path: ${image.path}');
-                            setState(() {
-                              _image = image.path;
-                            });
-                            Api.updateProfile(File(_image!));
-                            Navigator.pop(context);
-                          }
-                        },
-                        icon: Icon(Icons.camera_alt),
-                        color: Colors.white,
-                        iconSize: 40,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundColor: Colors.pink,
+                        child: IconButton(
+                          onPressed: () async {
+                            final ImagePicker picker = ImagePicker();
+                            // Pick an image from camera.
+                            final XFile? image = await picker.pickImage(
+                                source: ImageSource.camera, imageQuality: 80);
+                            if (image != null) {
+                              log('Image Path: ${image.path}');
+                              setState(() {
+                                _image = image.path;
+                              });
+                              Api.updateProfile(File(_image!));
+                              Navigator.pop(context);
+                            }
+                          },
+                          icon: Icon(Icons.camera_alt),
+                          color: Colors.white,
+                          iconSize: 40,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "Camera",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-                Column(children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundColor: Colors.indigo,
-                    child: IconButton(
-                      onPressed: () async {
-                        final ImagePicker picker = ImagePicker();
-                        // Pick an image from gallery.
-                        final XFile? image = await picker.pickImage(
-                            source: ImageSource.gallery, imageQuality: 80);
-                        if (image != null) {
-                          log('Image Path: ${image.path} -- MimeType: ${image.mimeType}');
-                          setState(() {
-                            _image = image.path;
-                          });
-                          Api.updateProfile(File(_image!));
-                          Navigator.pop(context);
-                        }
-                      },
-                      icon: Icon(Icons.photo),
-                      color: Colors.white,
-                      iconSize: 40,
-                    ),
+                      Text(
+                        "Camera",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
                   ),
-                  Text(
-                    "Gallery",
-                    style: TextStyle(fontSize: 16),
+                  Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundColor: Colors.indigo,
+                        child: IconButton(
+                          onPressed: () async {
+                            final ImagePicker picker = ImagePicker();
+                            // Pick an image from gallery.
+                            final XFile? image = await picker.pickImage(
+                                source: ImageSource.gallery, imageQuality: 80);
+                            if (image != null) {
+                              log('Image Path: ${image.path} -- MimeType: ${image.mimeType}');
+                              setState(() {
+                                _image = image.path;
+                              });
+                              Api.updateProfile(File(_image!));
+                              Navigator.pop(context);
+                            }
+                          },
+                          icon: Icon(Icons.photo),
+                          color: Colors.white,
+                          iconSize: 40,
+                        ),
+                      ),
+                      Text(
+                        "Gallery",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
                   ),
-                ])
-              ],
+                ],
+              ),
             ),
-          ),
-        ]);
+          ],
+        );
       },
     );
   }

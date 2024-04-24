@@ -27,13 +27,14 @@ class ContactCard extends StatelessWidget {
                     bottom: 5,
                     right: 1,
                     child: CircleAvatar(
-                        radius: 12,
-                        backgroundColor: Colors.green,
-                        child: Icon(
-                          Icons.check,
-                          color: Colors.white,
-                          size: 17,
-                        )),
+                      radius: 12,
+                      backgroundColor: Colors.green,
+                      child: Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 17,
+                      ),
+                    ),
                   )
                 : Container(),
           ],

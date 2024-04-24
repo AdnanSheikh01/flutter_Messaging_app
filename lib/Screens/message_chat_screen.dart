@@ -30,13 +30,17 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    focusNode.addListener(() {
-      if (focusNode.hasFocus) {
-        setState(() {
-          show = false;
-        });
-      }
-    });
+    focusNode.addListener(
+      () {
+        if (focusNode.hasFocus) {
+          setState(
+            () {
+              show = false;
+            },
+          );
+        }
+      },
+    );
   }
 
   @override
@@ -58,38 +62,40 @@ class _ChatScreenState extends State<ChatScreen> {
                             )));
               },
               child: StreamBuilder(
-                  stream: Api.getUsersInfo(widget.chatUser),
-                  builder: (context, snapshot) {
-                    final data = snapshot.data?.docs;
-                    final list = data
-                            ?.map((e) => ChatUser.fromJson(e.data()))
-                            .toList() ??
-                        [];
+                stream: Api.getUsersInfo(widget.chatUser),
+                builder: (context, snapshot) {
+                  final data = snapshot.data?.docs;
+                  final list =
+                      data?.map((e) => ChatUser.fromJson(e.data())).toList() ??
+                          [];
 
-                    return Row(children: [
+                  return Row(
+                    children: [
                       IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: Colors.black,
-                          )),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: Colors.black,
+                        ),
+                      ),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(
                             MediaQuery.of(context).size.height * .03),
                         child: CachedNetworkImage(
-                            width: MediaQuery.of(context).size.height * .055,
-                            height: MediaQuery.of(context).size.height * .055,
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            imageUrl: list.isNotEmpty
-                                ? list[0].image
-                                : widget.chatUser.image,
-                            errorWidget: (context, url, error) => CircleAvatar(
-                                  child: Icon(CupertinoIcons.person),
-                                )),
+                          width: MediaQuery.of(context).size.height * .055,
+                          height: MediaQuery.of(context).size.height * .055,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          imageUrl: list.isNotEmpty
+                              ? list[0].image
+                              : widget.chatUser.image,
+                          errorWidget: (context, url, error) => CircleAvatar(
+                            child: Icon(CupertinoIcons.person),
+                          ),
+                        ),
                       ),
                       SizedBox(
                         width: 10,
@@ -123,8 +129,10 @@ class _ChatScreenState extends State<ChatScreen> {
                           )
                         ],
                       ),
-                    ]);
-                  }),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
           // ignore: deprecated_member_use
@@ -150,17 +158,18 @@ class _ChatScreenState extends State<ChatScreen> {
 
                           if (_list.isNotEmpty) {
                             return ListView.builder(
-                                reverse: true,
-                                physics: BouncingScrollPhysics(),
-                                padding: EdgeInsets.only(
-                                    top: MediaQuery.of(context).size.height *
-                                        .01),
-                                itemCount: _list.length,
-                                itemBuilder: (context, index) {
-                                  return MessageCard(
-                                    message: _list[index],
-                                  );
-                                });
+                              reverse: true,
+                              physics: BouncingScrollPhysics(),
+                              padding: EdgeInsets.only(
+                                  top:
+                                      MediaQuery.of(context).size.height * .01),
+                              itemCount: _list.length,
+                              itemBuilder: (context, index) {
+                                return MessageCard(
+                                  message: _list[index],
+                                );
+                              },
+                            );
                           } else {
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -180,14 +189,15 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
                 if (_isUploading)
                   Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 20),
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      )),
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 20),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                      ),
+                    ),
+                  ),
                 _chatInput(),
                 show ? EmojiSelect() : Container(),
               ],
@@ -245,9 +255,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   onPressed: () {
                     focusNode.unfocus();
                     focusNode.canRequestFocus = false;
-                    setState(() {
-                      show = !show;
-                    });
+                    setState(
+                      () {
+                        show = !show;
+                      },
+                    );
                   },
                 ),
                 contentPadding: EdgeInsets.all(5),
@@ -266,9 +278,11 @@ class _ChatScreenState extends State<ChatScreen> {
                           });
                           log('Image Path: ${i.path}');
                           Api.SendImageChat(widget.chatUser, File(i.path));
-                          setState(() {
-                            _isUploading = false;
-                          });
+                          setState(
+                            () {
+                              _isUploading = false;
+                            },
+                          );
                         }
                       },
                       icon: Icon(
@@ -289,9 +303,11 @@ class _ChatScreenState extends State<ChatScreen> {
                           });
 
                           Api.SendImageChat(widget.chatUser, File(image.path));
-                          setState(() {
-                            _isUploading = false;
-                          });
+                          setState(
+                            () {
+                              _isUploading = false;
+                            },
+                          );
                         }
                       },
                     ),

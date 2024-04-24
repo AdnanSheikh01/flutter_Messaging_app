@@ -5,15 +5,6 @@ import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
-///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -60,8 +51,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '627974758158',
     projectId: 'messaging-app-bf299',
     storageBucket: 'messaging-app-bf299.appspot.com',
-    androidClientId: '627974758158-6qla55sftblp5e51c6v44m4tttiq9jlr.apps.googleusercontent.com',
-    iosClientId: '627974758158-t6i98kllm0bv2a8v4o7coi7mm7v8n9v3.apps.googleusercontent.com',
+    androidClientId:
+        '627974758158-6qla55sftblp5e51c6v44m4tttiq9jlr.apps.googleusercontent.com',
+    iosClientId:
+        '627974758158-t6i98kllm0bv2a8v4o7coi7mm7v8n9v3.apps.googleusercontent.com',
     iosBundleId: 'com.example.chattingApp',
   );
 
@@ -71,8 +64,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '627974758158',
     projectId: 'messaging-app-bf299',
     storageBucket: 'messaging-app-bf299.appspot.com',
-    androidClientId: '627974758158-6qla55sftblp5e51c6v44m4tttiq9jlr.apps.googleusercontent.com',
-    iosClientId: '627974758158-dl0t92eapvt96sag8slup9p31oekj1v7.apps.googleusercontent.com',
+    androidClientId:
+        '627974758158-6qla55sftblp5e51c6v44m4tttiq9jlr.apps.googleusercontent.com',
+    iosClientId:
+        '627974758158-dl0t92eapvt96sag8slup9p31oekj1v7.apps.googleusercontent.com',
     iosBundleId: 'com.example.chattingApp.RunnerTests',
   );
 }

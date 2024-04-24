@@ -25,24 +25,28 @@ class _LoginScreenState extends State<LoginScreen> {
   _handleGoogleBtnClick() {
     dialogs.showProgressBar(context);
 
-    _signInWithGoogle().then((user) async {
-      Navigator.pop(context);
+    _signInWithGoogle().then(
+      (user) async {
+        Navigator.pop(context);
 
-      if (user != null) {
-        log('\nUser: ${user.user}');
-        log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
+        if (user != null) {
+          log('\nUser: ${user.user}');
+          log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
 
-        if ((await Api.userExists())) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-        } else {
-          await Api.createUser().then((value) {
+          if ((await Api.userExists())) {
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-          });
+          } else {
+            await Api.createUser().then(
+              (value) {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const HomeScreen()));
+              },
+            );
+          }
         }
-      }
-    });
+      },
+    );
   }
 
   Future<UserCredential?> _signInWithGoogle() async {
@@ -110,36 +114,38 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       _handleGoogleBtnClick();
                     },
-                    child: Stack(children: [
-                      Align(
-                        alignment: Alignment.center,
-                        child: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Login with ',
-                                style: const TextStyle(
-                                    fontSize: 16, color: Colors.white),
-                              ),
-                              TextSpan(
-                                text: 'Google',
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Login with ',
+                                  style: const TextStyle(
+                                      fontSize: 16, color: Colors.white),
+                                ),
+                                TextSpan(
+                                  text: 'Google',
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Image.asset(
-                          'images/google.png',
-                          height: MediaQuery.of(context).size.height * .03,
-                        ),
-                      )
-                    ]),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Image.asset(
+                            'images/google.png',
+                            height: MediaQuery.of(context).size.height * .03,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],

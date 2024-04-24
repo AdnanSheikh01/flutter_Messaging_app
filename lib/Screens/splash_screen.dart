@@ -18,23 +18,26 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          statusBarColor: Colors.white,
-          systemNavigationBarColor: Colors.white));
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+            systemNavigationBarColor: Colors.white));
 
-      if (Api.auth.currentUser != null) {
-        log('\nUser: ${Api.auth.currentUser}');
-        //navigate to home screen
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-      } else {
-        //navigate to login screen
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const LoginScreen()));
-      }
-    });
+        if (Api.auth.currentUser != null) {
+          log('\nUser: ${Api.auth.currentUser}');
+          //navigate to home screen
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+        } else {
+          //navigate to login screen
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => const LoginScreen()));
+        }
+      },
+    );
   }
 
   @override

@@ -47,15 +47,16 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                         borderRadius: BorderRadius.circular(
                             MediaQuery.of(context).size.height * .1),
                         child: CachedNetworkImage(
-                            width: MediaQuery.of(context).size.height * .2,
-                            height: MediaQuery.of(context).size.height * .2,
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            imageUrl: widget.chatUser.image,
-                            errorWidget: (context, url, error) => CircleAvatar(
-                                  child: Icon(CupertinoIcons.person),
-                                )),
+                          width: MediaQuery.of(context).size.height * .2,
+                          height: MediaQuery.of(context).size.height * .2,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          imageUrl: widget.chatUser.image,
+                          errorWidget: (context, url, error) => CircleAvatar(
+                            child: Icon(CupertinoIcons.person),
+                          ),
+                        ),
                       ),
                     ],
                   ),

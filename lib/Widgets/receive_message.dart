@@ -39,12 +39,14 @@ class _ReceiveMessageState extends State<ReceiveMessage> {
               Positioned(
                 bottom: 4,
                 right: 10,
-                child: Text("12:05pm",
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 12,
-                    )),
-              )
+                child: Text(
+                  "12:05pm",
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 12,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

@@ -11,11 +11,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setPreferredOrientations(
-          [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp])
-      .then((value) async {
-    _initializeFirebase();
-    runApp(const MyApp());
-  });
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then(
+    (value) async {
+      _initializeFirebase();
+      runApp(
+        const MyApp(),
+      );
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {
