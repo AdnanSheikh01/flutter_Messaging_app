@@ -4,10 +4,12 @@ import 'package:chatting_app/Widgets/custom_card.dart';
 import 'package:chatting_app/models/Apis.dart';
 import 'package:chatting_app/models/chat_user.dart';
 import 'package:chatting_app/utils/dialogs.dart';
+import 'package:dio/io.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
+import 'package:form_validator/form_validator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,6 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<ChatUser> _list = [];
   final List<ChatUser> _searchList = [];
   bool _issearching = false;
+
+  GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   void initState() {
     // TODO: implement initState
@@ -171,10 +175,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ? _searchList.length
                                     : _list.length,
                                 itemBuilder: (context, index) {
-                                  return CustomCard(
-                                      chatUser: _issearching
-                                          ? _searchList[index]
-                                          : _list[index]);
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 5),
+                                    child: CustomCard(
+                                        chatUser: _issearching
+                                            ? _searchList[index]
+                                            : _list[index]),
+                                  );
                                 },
                               );
                             } else {
@@ -222,15 +230,19 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
 
         //content
-        content: TextFormField(
-          autofocus: true,
-          maxLines: null,
-          onChanged: (value) => email = value,
-          decoration: InputDecoration(
-              hintText: 'Email Id',
-              prefixIcon: const Icon(Icons.email, color: Colors.black),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(15))),
+        content: Form(
+          key: _key,
+          child: TextFormField(
+            autofocus: true,
+            maxLines: null,
+            validator: ValidationBuilder().email().maxLength(50).build(),
+            onChanged: (value) => email = value,
+            decoration: InputDecoration(
+                hintText: 'Email Id',
+                prefixIcon: const Icon(Icons.email, color: Colors.black),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15))),
+          ),
         ),
 
         //actions
@@ -247,21 +259,23 @@ class _HomeScreenState extends State<HomeScreen> {
           //add button
           MaterialButton(
             onPressed: () async {
-              Navigator.pop(context);
-              if (email.isNotEmpty) {
-                await Api.AddChatUser(email).then(
-                  (value) {
-                    if (!value) {
-                      dialogs.showSnackBar(
-                          context,
-                          'User does not Exists.',
-                          Colors.red,
-                          EdgeInsets.only(
-                              bottom:
-                                  MediaQuery.of(context).size.height * .01));
-                    }
-                  },
-                );
+              if (_key.currentState!.validate()) {
+                Navigator.pop(context);
+                if (email.isNotEmpty) {
+                  await Api.AddChatUser(email).then(
+                    (value) {
+                      if (!value) {
+                        dialogs.showSnackBar(
+                            context,
+                            'User does not Exists.',
+                            Colors.red,
+                            EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).size.height * .01));
+                      }
+                    },
+                  );
+                }
               }
             },
             child: const Text(

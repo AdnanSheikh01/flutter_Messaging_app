@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: <Widget>[
                 SizedBox(height: MediaQuery.of(context).size.height * .12),
                 Text(
-                  "Welcome to Chat",
+                  "Welcome to Alpine",
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
