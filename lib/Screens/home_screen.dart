@@ -4,7 +4,6 @@ import 'package:chatting_app/Widgets/custom_card.dart';
 import 'package:chatting_app/models/Apis.dart';
 import 'package:chatting_app/models/chat_user.dart';
 import 'package:chatting_app/utils/dialogs.dart';
-import 'package:dio/io.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
