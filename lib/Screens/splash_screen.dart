@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: MediaQuery.of(context).size.height * .15,
             ),
             Text(
-              "Welcome to Chat",
+              "Welcome to Alpine",
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             )
           ],

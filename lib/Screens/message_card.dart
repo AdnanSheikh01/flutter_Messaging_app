@@ -78,7 +78,7 @@ class _MessageCardState extends State<MessageCard> {
             ),
             Positioned(
               bottom: 4,
-              right: 10,
+              right: 5,
               child:
                   Text(MyDateUtil.getFormatTime(context, widget.message.sent),
                       style: TextStyle(
@@ -140,7 +140,7 @@ class _MessageCardState extends State<MessageCard> {
             ),
             Positioned(
               bottom: 4,
-              right: 10,
+              right: 5,
               child: Row(
                 children: [
                   Text(MyDateUtil.getFormatTime(context, widget.message.sent),

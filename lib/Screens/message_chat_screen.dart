@@ -231,17 +231,7 @@ class _ChatScreenState extends State<ChatScreen> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
             child: TextFormField(
-              onChanged: (value) {
-                if (value.startsWith(" ") && _controller.selection.start <= 1) {
-                  _controller.text = value.trimLeft();
-                  _controller.selection = TextSelection.fromPosition(
-                    TextPosition(offset: _controller.text.length),
-                  );
-                }
-                ;
-              },
               controller: _controller,
-              // textInputAction: TextInputAction.go,
               focusNode: focusNode,
               keyboardType: TextInputType.multiline,
               maxLines: null,
