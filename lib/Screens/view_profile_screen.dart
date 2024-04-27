@@ -25,92 +25,97 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(widget.chatUser.name),
-        ),
-        body: Form(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.height * .05),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * .03,
-                  ),
-                  Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                            MediaQuery.of(context).size.height * .1),
-                        child: CachedNetworkImage(
-                          width: MediaQuery.of(context).size.height * .2,
-                          height: MediaQuery.of(context).size.height * .2,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          imageUrl: widget.chatUser.image,
-                          errorWidget: (context, url, error) => CircleAvatar(
-                            child: Icon(CupertinoIcons.person),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
+            centerTitle: true,
+            title: Text(widget.chatUser.name),
+          ),
+          body: Form(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * .05),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * .03,
+                    ),
+                    Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.height * .1),
+                          child: CachedNetworkImage(
+                            width: MediaQuery.of(context).size.height * .2,
+                            height: MediaQuery.of(context).size.height * .2,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            imageUrl: widget.chatUser.image,
+                            errorWidget: (context, url, error) => CircleAvatar(
+                              child: Icon(CupertinoIcons.person),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * .02,
-                  ),
-                  Text(
-                    widget.chatUser.email,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                        fontSize: 18),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * .05,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "About: ",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        widget.chatUser.about,
-                        style: TextStyle(
+                      ],
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .02,
+                    ),
+                    Text(
+                      widget.chatUser.email,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
                           color: Colors.black87,
-                          fontSize: 16,
+                          fontSize: 18),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .05,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "About: ",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        Text(
+                          widget.chatUser.about,
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Joined on: ",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              MyDateUtil.getLastMessageTime(context, widget.chatUser.createdAt,
-                  showYear: true),
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 16,
+          floatingActionButton: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Joined on: ",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-            ),
-          ],
+              Text(
+                MyDateUtil.getLastMessageTime(
+                    context, widget.chatUser.createdAt,
+                    showYear: true),
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

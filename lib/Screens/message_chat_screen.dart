@@ -50,7 +50,7 @@ class _ChatScreenState extends State<ChatScreen> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.black,
             automaticallyImplyLeading: false,
             flexibleSpace: InkWell(
               onTap: () {
@@ -77,7 +77,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         },
                         icon: Icon(
                           Icons.arrow_back,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
                       ClipRRect(
@@ -111,7 +111,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             style: TextStyle(
                                 fontSize: 19,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                                color: Colors.white),
                           ),
                           Text(
                             list.isNotEmpty
@@ -125,7 +125,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                     context: context,
                                     LastActive: widget.chatUser.lastActive),
                             style:
-                                TextStyle(fontSize: 13, color: Colors.black54),
+                                TextStyle(fontSize: 13, color: Colors.white54),
                           )
                         ],
                       ),
@@ -136,6 +136,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
           // ignore: deprecated_member_use
+          backgroundColor: Colors.white.withOpacity(.9),
           body: WillPopScope(
             child: Column(
               children: [

@@ -66,16 +66,23 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           child: Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.black,
+              foregroundColor: Colors.white,
               automaticallyImplyLeading: false,
               title: _issearching
                   ? TextField(
+                      cursorColor: Colors.white,
                       decoration: InputDecoration(
                           hintText: "Search...",
-                          prefixIcon: Icon(Icons.search),
+                          hintStyle: TextStyle(color: Colors.white),
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: Colors.white,
+                          ),
                           border: InputBorder.none),
                       autofocus: true,
                       style: TextStyle(
-                          color: Colors.black, fontSize: 16, letterSpacing: .5),
+                          color: Colors.white, fontSize: 16, letterSpacing: .5),
                       onChanged: (val) {
                         _searchList.clear();
                         for (var i in _list) {
